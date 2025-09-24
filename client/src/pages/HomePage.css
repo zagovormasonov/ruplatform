@@ -210,19 +210,27 @@
   font-size: 0.875rem;
 }
 
-/* Categories Card */
+/* Popular Categories Card */
+.categories-card-main {
+  grid-column: span 3;
+  grid-row: span 2;
+  padding: 32px;
+}
+
 .categories-card {
   padding: 24px;
 }
 
-.categories-list {
+.categories-list,
+.categories-list-main {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.category-tag {
-  padding: 6px 12px;
+.category-tag,
+.category-tag-main {
+  padding: 8px 16px;
   background: #f3f4f6;
   border: 1px solid #e5e7eb;
   border-radius: 20px;
@@ -233,7 +241,8 @@
   transition: all 0.2s ease;
 }
 
-.category-tag:hover {
+.category-tag:hover,
+.category-tag-main:hover {
   background: #6366f1;
   color: white;
   border-color: #6366f1;
@@ -528,7 +537,7 @@
     grid-column: span 4;
   }
 
-  .stats-card {
+  .categories-card-main {
     grid-column: span 2;
   }
 }
@@ -544,7 +553,7 @@
     grid-row: span 2;
   }
 
-  .stats-card {
+  .categories-card-main {
     grid-column: span 4;
     grid-row: span 1;
   }
@@ -582,7 +591,7 @@
     font-size: 1rem;
   }
 
-  .stats-card,
+  .categories-card-main,
   .categories-card,
   .articles-card,
   .cta-card {
@@ -610,7 +619,7 @@
   }
 
   .hero-card,
-  .stats-card,
+  .categories-card-main,
   .categories-card,
   .articles-card,
   .cta-card {
@@ -637,7 +646,9 @@
     max-width: 200px;
   }
 
-  .stats-grid {
+  .stats-grid,
+  .categories-list-main {
+    display: grid;
     grid-template-columns: 1fr;
     gap: 16px;
   }

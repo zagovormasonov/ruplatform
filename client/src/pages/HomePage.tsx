@@ -88,14 +88,14 @@ const HomePage: React.FC = () => {
         <Card className="bento-card hero-card">
           <div className="hero-content">
             <Title level={1} className="hero-title">
-              Discover Spiritual
+              Откройте мир
               <br />
-              <span className="hero-highlight">Masters</span>
+              <span className="hero-highlight">духовных практик</span>
             </Title>
             <Paragraph className="hero-description">
-              Explore work from the most talented and accomplished
+              Изучите работы самых талантливых и опытных
               <br />
-              spiritual practitioners ready to take on your next project.
+              духовных практиков, готовых взяться за ваш проект.
             </Paragraph>
             <div className="hero-actions">
               <Button
@@ -105,7 +105,7 @@ const HomePage: React.FC = () => {
                 onClick={() => navigate('/experts')}
                 className="hero-button"
               >
-                Find Expert
+                Найти эксперта
               </Button>
               <Button
                 size="large"
@@ -113,36 +113,28 @@ const HomePage: React.FC = () => {
                 onClick={() => navigate('/articles')}
                 className="hero-button secondary"
               >
-                Read Articles
+                Читать статьи
               </Button>
             </div>
           </div>
         </Card>
 
-        {/* Statistics Card - Большая справа */}
-        <Card className="bento-card stats-card">
-          <div className="stats-header">
-            <Title level={4}>Platform Statistics</Title>
+        {/* Popular Categories - Как на скриншоте */}
+        <Card className="bento-card categories-card-main">
+          <div className="section-header">
+            <Title level={4}>Популярные категории</Title>
           </div>
-          <div className="stats-grid">
-            <div className="stat-item">
-              <div className="stat-number">1,765</div>
-              <div className="stat-label">Active Experts</div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-number">437</div>
-              <div className="stat-label">Success Stories</div>
-            </div>
-          </div>
-          <div className="stats-chart">
-            <div className="chart-placeholder">
-              <div className="chart-line"></div>
-              <div className="chart-dots">
-                <div className="dot"></div>
-                <div className="dot"></div>
-                <div className="dot"></div>
-              </div>
-            </div>
+          <div className="categories-list-main">
+            <span className="category-tag-main">Медитация</span>
+            <span className="category-tag-main">Астрология</span>
+            <span className="category-tag-main">Таро</span>
+            <span className="category-tag-main">Йога</span>
+            <span className="category-tag-main">Рейки</span>
+            <span className="category-tag-main">Нумерология</span>
+            <span className="category-tag-main">Холотропное дыхание</span>
+            <span className="category-tag-main">Регрессия</span>
+            <span className="category-tag-main">Парапсихология</span>
+            <span className="category-tag-main">Расстановки</span>
           </div>
         </Card>
 
@@ -151,51 +143,51 @@ const HomePage: React.FC = () => {
           <div className="feature-icon">
             <TeamOutlined />
           </div>
-          <Title level={4}>Verified Experts</Title>
-          <Paragraph>All masters undergo thorough verification</Paragraph>
+          <Title level={4}>Проверенные эксперты</Title>
+          <Paragraph>Все мастера проходят тщательную проверку</Paragraph>
         </Card>
 
         <Card className="bento-card feature-card">
           <div className="feature-icon">
             <FileTextOutlined />
           </div>
-          <Title level={4}>Quality Content</Title>
-          <Paragraph>Learn practices through expert articles</Paragraph>
+          <Title level={4}>Качественные материалы</Title>
+          <Paragraph>Изучайте практики через экспертные статьи</Paragraph>
         </Card>
 
         <Card className="bento-card feature-card">
           <div className="feature-icon">
             <SearchOutlined />
           </div>
-          <Title level={4}>Smart Search</Title>
-          <Paragraph>Filters by topics and locations</Paragraph>
+          <Title level={4}>Удобный поиск</Title>
+          <Paragraph>Фильтры по тематикам и городам</Paragraph>
         </Card>
 
-        {/* Popular Categories */}
+        {/* Популярные категории */}
         <Card className="bento-card categories-card">
           <div className="section-header">
-            <Title level={4}>Popular Categories</Title>
+            <Title level={4}>Популярные категории</Title>
           </div>
           <div className="categories-list">
-            <span className="category-tag">Meditation</span>
-            <span className="category-tag">Astrology</span>
-            <span className="category-tag">Tarot</span>
-            <span className="category-tag">Yoga</span>
-            <span className="category-tag">Reiki</span>
-            <span className="category-tag">Numerology</span>
+            <span className="category-tag">Медитация</span>
+            <span className="category-tag">Астрология</span>
+            <span className="category-tag">Таро</span>
+            <span className="category-tag">Йога</span>
+            <span className="category-tag">Рейки</span>
+            <span className="category-tag">Нумерология</span>
           </div>
         </Card>
 
-        {/* Featured Articles */}
+        {/* Избранные статьи */}
         <Card className="bento-card articles-card">
           <div className="section-header">
-            <Title level={4}>Featured Articles</Title>
+            <Title level={4}>Избранные статьи</Title>
             <Button
               type="link"
               onClick={() => navigate('/articles')}
               className="view-all-button"
             >
-              View All
+              Все статьи
             </Button>
           </div>
 
@@ -204,7 +196,7 @@ const HomePage: React.FC = () => {
               <Spin size="large" />
             </div>
           ) : articles.length === 0 ? (
-            <Empty description="No articles yet" />
+            <Empty description="Пока нет статей" />
           ) : (
             <div className="featured-articles">
               {articles.slice(0, 2).map((article) => (
@@ -263,10 +255,10 @@ const HomePage: React.FC = () => {
             <div className="cta-icon">
               <SearchOutlined />
             </div>
-            <Title level={3}>Ready to Start?</Title>
+            <Title level={3}>Готовы начать?</Title>
             <Paragraph>
-              Tell us what you need and instantly get matched with world-class
-              spiritual practitioners ready to work on your project.
+              Расскажите, что вам нужно, и мгновенно получите подбор
+              квалифицированных духовных практиков, готовых работать над вашим проектом.
             </Paragraph>
             <Button
               type="primary"
@@ -274,7 +266,7 @@ const HomePage: React.FC = () => {
               onClick={() => navigate('/experts')}
               className="cta-button"
             >
-              Get Matched Now
+              Найти эксперта
             </Button>
           </div>
         </Card>
