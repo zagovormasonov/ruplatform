@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Button, Typography, Tabs, Spin, Empty } from 'antd';
+import { Card, Button, Typography, Spin, Empty } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import {
   TeamOutlined,
@@ -18,7 +18,7 @@ const HomePage: React.FC = () => {
   const navigate = useNavigate();
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('new');
+  const [activeTab] = useState('new');
 
   useEffect(() => {
     loadArticles(activeTab);
@@ -82,16 +82,20 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="home-page">
-      {/* Bento Grid */}
+      {/* Dribbble Style Bento Grid */}
       <div className="bento-grid">
-        {/* Hero Section - Большая карточка */}
+        {/* Hero Section - Большая слева */}
         <Card className="bento-card hero-card">
           <div className="hero-content">
             <Title level={1} className="hero-title">
-              Духовные практики
+              Discover Spiritual
+              <br />
+              <span className="hero-highlight">Masters</span>
             </Title>
             <Paragraph className="hero-description">
-              Найдите своего наставника
+              Explore work from the most talented and accomplished
+              <br />
+              spiritual practitioners ready to take on your next project.
             </Paragraph>
             <div className="hero-actions">
               <Button
@@ -101,7 +105,7 @@ const HomePage: React.FC = () => {
                 onClick={() => navigate('/experts')}
                 className="hero-button"
               >
-                Найти эксперта
+                Find Expert
               </Button>
               <Button
                 size="large"
@@ -109,79 +113,104 @@ const HomePage: React.FC = () => {
                 onClick={() => navigate('/articles')}
                 className="hero-button secondary"
               >
-                Статьи
+                Read Articles
               </Button>
             </div>
           </div>
         </Card>
 
-        {/* Features - Разные размеры */}
-        <Card className="bento-card feature-card large">
+        {/* Statistics Card - Большая справа */}
+        <Card className="bento-card stats-card">
+          <div className="stats-header">
+            <Title level={4}>Platform Statistics</Title>
+          </div>
+          <div className="stats-grid">
+            <div className="stat-item">
+              <div className="stat-number">1,765</div>
+              <div className="stat-label">Active Experts</div>
+            </div>
+            <div className="stat-item">
+              <div className="stat-number">437</div>
+              <div className="stat-label">Success Stories</div>
+            </div>
+          </div>
+          <div className="stats-chart">
+            <div className="chart-placeholder">
+              <div className="chart-line"></div>
+              <div className="chart-dots">
+                <div className="dot"></div>
+                <div className="dot"></div>
+                <div className="dot"></div>
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        {/* Features Cards - Разные размеры */}
+        <Card className="bento-card feature-card">
           <div className="feature-icon">
             <TeamOutlined />
           </div>
-          <Title level={4}>Проверенные эксперты</Title>
-          <Paragraph>Все мастера проходят тщательную проверку</Paragraph>
+          <Title level={4}>Verified Experts</Title>
+          <Paragraph>All masters undergo thorough verification</Paragraph>
         </Card>
 
         <Card className="bento-card feature-card">
           <div className="feature-icon">
             <FileTextOutlined />
           </div>
-          <Title level={4}>Качественные материалы</Title>
-          <Paragraph>Изучайте практики через экспертные статьи</Paragraph>
+          <Title level={4}>Quality Content</Title>
+          <Paragraph>Learn practices through expert articles</Paragraph>
         </Card>
 
         <Card className="bento-card feature-card">
           <div className="feature-icon">
             <SearchOutlined />
           </div>
-          <Title level={4}>Удобный поиск</Title>
-          <Paragraph>Фильтры по тематикам и городам</Paragraph>
+          <Title level={4}>Smart Search</Title>
+          <Paragraph>Filters by topics and locations</Paragraph>
         </Card>
 
-        {/* Articles - Bento стиль */}
+        {/* Popular Categories */}
+        <Card className="bento-card categories-card">
+          <div className="section-header">
+            <Title level={4}>Popular Categories</Title>
+          </div>
+          <div className="categories-list">
+            <span className="category-tag">Meditation</span>
+            <span className="category-tag">Astrology</span>
+            <span className="category-tag">Tarot</span>
+            <span className="category-tag">Yoga</span>
+            <span className="category-tag">Reiki</span>
+            <span className="category-tag">Numerology</span>
+          </div>
+        </Card>
+
+        {/* Featured Articles */}
         <Card className="bento-card articles-card">
           <div className="section-header">
-            <Title level={4}>Последние статьи</Title>
+            <Title level={4}>Featured Articles</Title>
             <Button
               type="link"
               onClick={() => navigate('/articles')}
               className="view-all-button"
             >
-              Все
+              View All
             </Button>
           </div>
-
-          <Tabs
-            activeKey={activeTab}
-            onChange={setActiveTab}
-            className="articles-tabs"
-            items={[
-              {
-                key: 'new',
-                label: 'Новые',
-              },
-              {
-                key: 'popular',
-                label: 'Популярные',
-              },
-            ]}
-          />
 
           {loading ? (
             <div className="loading-container">
               <Spin size="large" />
             </div>
           ) : articles.length === 0 ? (
-            <Empty description="Пока нет статей" />
+            <Empty description="No articles yet" />
           ) : (
-            <div className="articles-grid">
-              {articles.slice(0, 4).map((article, index) => (
-                <Card
+            <div className="featured-articles">
+              {articles.slice(0, 2).map((article) => (
+                <div
                   key={article.id}
-                  className={`article-card ${index === 0 ? 'featured' : ''}`}
-                  hoverable
+                  className="featured-article"
                   onClick={() => navigate(`/articles/${article.id}`)}
                 >
                   <div className="article-cover">
@@ -199,12 +228,12 @@ const HomePage: React.FC = () => {
                       </div>
                     )}
                   </div>
-                  <div className="article-content">
+                  <div className="article-info">
                     <Title level={5} className="article-title">
-                      {truncateText(article.title, index === 0 ? 40 : 30)}
+                      {truncateText(article.title, 35)}
                     </Title>
                     <Text className="article-excerpt">
-                      {truncateText(article.excerpt || '', 80)}
+                      {truncateText(article.excerpt || '', 60)}
                     </Text>
                     <div className="article-meta">
                       <Text className="article-author">
@@ -222,18 +251,22 @@ const HomePage: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                </Card>
+                </div>
               ))}
             </div>
           )}
         </Card>
 
-        {/* CTA - Большая карточка */}
+        {/* CTA Card */}
         <Card className="bento-card cta-card">
           <div className="cta-content">
-            <Title level={3}>Начните свой путь</Title>
+            <div className="cta-icon">
+              <SearchOutlined />
+            </div>
+            <Title level={3}>Ready to Start?</Title>
             <Paragraph>
-              Присоединяйтесь к сообществу духовных практик
+              Tell us what you need and instantly get matched with world-class
+              spiritual practitioners ready to work on your project.
             </Paragraph>
             <Button
               type="primary"
@@ -241,7 +274,7 @@ const HomePage: React.FC = () => {
               onClick={() => navigate('/experts')}
               className="cta-button"
             >
-              Найти эксперта
+              Get Matched Now
             </Button>
           </div>
         </Card>
