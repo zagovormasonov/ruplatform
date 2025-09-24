@@ -56,15 +56,39 @@ const ChatPage: React.FC = () => {
     }
 
     // Инициализация Socket.IO
-    const newSocket = io('http://localhost:3001');
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+    const socketUrl = apiUrl.replace('/api', '');
+    console.log('Spiritual Platform: Подключение к Socket.IO:', socketUrl);
+    const newSocket = io(socketUrl);
     setSocket(newSocket);
 
     newSocket.emit('join_user', user.id);
 
     // Обработка новых сообщений
     newSocket.on('new_message', (message: Message) => {
-      setMessages(prev => [...prev, message]);
+      console.log('Spiritual Platform: Получено новое сообщение через Socket.IO:', message);
+      setMessages(prev => [...prev, {
+        id: message.id,
+        chatId: message.chatId,
+        senderId: message.senderId, 
+        content: message.content,
+        createdAt: message.createdAt,
+        avatarUrl: message.avatarUrl
+      }]);
       scrollToBottom();
+    });
+
+    // Обработка ошибок подключения
+    newSocket.on('connect', () => {
+      console.log('Spiritual Platform: Socket.IO подключен');
+    });
+
+    newSocket.on('disconnect', () => {
+      console.log('Spiritual Platform: Socket.IO отключен');
+    });
+
+    newSocket.on('connect_error', (error) => {
+      console.error('Spiritual Platform: Ошибка подключения Socket.IO:', error);
     });
 
     // Загрузка списка чатов
@@ -125,7 +149,7 @@ const ChatPage: React.FC = () => {
   };
 
   const handleSendMessage = async () => {
-    if (!newMessage.trim() || !chatId || !socket || !user) return;
+    if (!newMessage.trim() || !chatId || !user) return;
 
     try {
       setSendingMessage(true);
@@ -136,8 +160,29 @@ const ChatPage: React.FC = () => {
         content: newMessage.trim()
       };
 
-      // Отправка через Socket.IO
-      socket.emit('send_message', messageData);
+      console.log('Spiritual Platform: Отправка сообщения:', messageData);
+
+      if (socket && socket.connected) {
+        // Отправка через Socket.IO
+        socket.emit('send_message', messageData);
+        console.log('Spiritual Platform: Сообщение отправлено через Socket.IO');
+      } else {
+        // Fallback: отправка через HTTP API
+        console.log('Spiritual Platform: Socket не подключен, используем HTTP API');
+        const sentMessage = await chatsAPI.sendMessage(chatId, newMessage.trim());
+        
+        // Добавляем сообщение в локальный стейт
+        const newMsg: Message = {
+          id: sentMessage.id,
+          chatId: parseInt(chatId),
+          senderId: user.id,
+          content: newMessage.trim(),
+          createdAt: new Date().toISOString(),
+          avatarUrl: user.avatarUrl
+        };
+        setMessages(prev => [...prev, newMsg]);
+        scrollToBottom();
+      }
       
       setNewMessage('');
     } catch (error) {

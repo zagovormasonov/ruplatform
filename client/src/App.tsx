@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ConfigProvider, App as AntApp } from 'antd';
 import ruRU from 'antd/locale/ru_RU';
 import { AuthProvider } from './contexts/AuthContext';
+import { ChatProvider } from './contexts/ChatContext';
 import Layout from './components/Layout/Layout';
 import ErrorBoundary from './components/ErrorBoundary';
 import HomePage from './pages/HomePage';
@@ -64,7 +65,8 @@ function App() {
       <AntApp>
         <ErrorBoundary>
           <AuthProvider>
-            <Router>
+            <ChatProvider>
+              <Router>
               <Layout>
                 <Routes>
                   <Route path="/" element={<HomePage />} />
@@ -81,7 +83,8 @@ function App() {
                   <Route path="/expert-dashboard" element={<ErrorBoundary><ExpertDashboardPage /></ErrorBoundary>} />
                 </Routes>
               </Layout>
-            </Router>
+              </Router>
+            </ChatProvider>
           </AuthProvider>
         </ErrorBoundary>
       </AntApp>

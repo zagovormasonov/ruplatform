@@ -149,31 +149,51 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   </Button>
                 )}
                 
-                <Badge count={0} size="small">
+                <Button
+                  type="text"
+                  icon={<MessageOutlined />}
+                  onClick={() => navigate('/chat')}
+                  className="message-button"
+                >
+                  Чаты
+                </Button>
+
+                {user.role === 'expert' && (
                   <Button
                     type="text"
-                    icon={<MessageOutlined />}
-                    onClick={() => navigate('/chat')}
-                    className="message-button"
-                  />
-                </Badge>
+                    icon={<DashboardOutlined />}
+                    onClick={() => navigate('/expert-dashboard')}
+                    className="dashboard-button"
+                  >
+                    Панель
+                  </Button>
+                )}
 
-                <Dropdown
-                  menu={{ items: userMenuItems, onClick: handleUserMenuClick }}
-                  placement="bottomRight"
-                  arrow
-                >
-                  <Space className="user-menu">
-                    <Avatar 
-                      src={user.avatarUrl} 
-                      icon={<UserOutlined />}
-                      size="default"
-                    />
-                    <span className="user-name">
-                      {user.firstName} {user.lastName}
-                    </span>
-                  </Space>
-                </Dropdown>
+                <Space>
+                  <Avatar 
+                    src={user.avatarUrl} 
+                    icon={<UserOutlined />}
+                    size="default"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => navigate('/profile')}
+                  />
+                  <span 
+                    className="user-name"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => navigate('/profile')}
+                  >
+                    {user.firstName} {user.lastName}
+                  </span>
+                  <Button
+                    type="text"
+                    icon={<LogoutOutlined />}
+                    onClick={() => {
+                      logout();
+                      navigate('/');
+                    }}
+                    title="Выйти"
+                  />
+                </Space>
               </Space>
             ) : (
               <Space>

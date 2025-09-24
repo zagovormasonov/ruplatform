@@ -74,9 +74,11 @@
   display: inline;
 }
 
-.message-button {
+.message-button,
+.dashboard-button {
   border-radius: 6px;
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .user-menu {
