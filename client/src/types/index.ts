@@ -80,6 +80,8 @@ export interface Message {
 
 export interface Chat {
   id: number;
+  user1Id: number;
+  user2Id: number;
   otherUserName: string;
   otherUserAvatar?: string;
   otherUserId: number;

@@ -210,7 +210,11 @@ const ChatPage: React.FC = () => {
   };
 
   const formatMessageTime = (dateString: string) => {
+    if (!dateString) return '';
+
     const date = new Date(dateString);
+    if (isNaN(date.getTime())) return '';
+
     const now = new Date();
     const diffInHours = (now.getTime() - date.getTime()) / (1000 * 60 * 60);
 
@@ -219,10 +223,18 @@ const ChatPage: React.FC = () => {
         hour: '2-digit',
         minute: '2-digit'
       });
+    } else if (diffInHours < 24 * 7) {
+      return date.toLocaleDateString('ru-RU', {
+        weekday: 'short',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
     } else {
       return date.toLocaleDateString('ru-RU', {
         day: 'numeric',
-        month: 'short'
+        month: 'short',
+        hour: '2-digit',
+        minute: '2-digit'
       });
     }
   };
@@ -325,6 +337,11 @@ const ChatPage: React.FC = () => {
                     </Text>
                   </div>
                 </div>
+                <div className="chat-info">
+                  <Text type="secondary" className="chat-status">
+                    {messages.length > 0 ? `${messages.length} сообщений` : 'Нет сообщений'}
+                  </Text>
+                </div>
               </div>
 
               <Divider style={{ margin: '16px 0' }} />
@@ -342,36 +359,40 @@ const ChatPage: React.FC = () => {
                   </div>
                 ) : (
                   <div className="messages-list">
-                    {messages.map((message) => (
-                      <div
-                        key={message.id}
-                        className={`message ${
-                          message.senderId === user.id ? 'own-message' : 'other-message'
-                        }`}
-                      >
-                        {message.senderId !== user.id && (
-                          <Avatar
-                            src={message.avatarUrl}
-                            icon={<UserOutlined />}
-                            size="small"
-                            className="message-avatar"
-                          />
-                        )}
-                        <div className="message-content">
-                          {message.senderId !== user.id && (
-                            <Text className="message-sender-name">
-                              {message.firstName} {message.lastName}
-                            </Text>
+                    {messages.map((message) => {
+                      const isOwnMessage = message.senderId === user.id;
+
+                      return (
+                        <div
+                          key={message.id}
+                          className={`message ${
+                            isOwnMessage ? 'own-message' : 'other-message'
+                          }`}
+                        >
+                          {!isOwnMessage && (
+                            <Avatar
+                              src={message.avatarUrl}
+                              icon={<UserOutlined />}
+                              size="small"
+                              className="message-avatar"
+                            />
                           )}
-                          <div className="message-bubble">
-                            <Text>{message.content}</Text>
+                          <div className="message-content">
+                            {!isOwnMessage && (
+                              <Text className="message-sender-name">
+                                {message.firstName} {message.lastName}
+                              </Text>
+                            )}
+                            <div className="message-bubble">
+                              <Text>{message.content}</Text>
+                            </div>
+                            <Text className="message-time">
+                              {formatMessageTime(message.createdAt)}
+                            </Text>
                           </div>
-                          <Text className="message-time">
-                            {formatMessageTime(message.createdAt)}
-                          </Text>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                     <div ref={messagesEndRef} />
                   </div>
                 )}
