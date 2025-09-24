@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Button, Typography, Tabs, Spin, Empty } from 'antd';
+import { Card, Button, Typography, Tabs, Spin, Empty } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { 
-  TeamOutlined, 
-  FileTextOutlined, 
+import {
+  TeamOutlined,
+  FileTextOutlined,
   SearchOutlined,
   EyeOutlined,
-  HeartOutlined,
-  ClockCircleOutlined
+  HeartOutlined
 } from '@ant-design/icons';
 import { articlesAPI } from '../services/api';
 import type { Article } from '../types/article';
@@ -75,13 +74,6 @@ const HomePage: React.FC = () => {
     }
   };
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('ru-RU', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    });
-  };
 
   const truncateText = (text: string, maxLength: number) => {
     if (text.length <= maxLength) return text;
@@ -90,193 +82,161 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="home-page">
-      {/* Hero Section */}
-      <section className="hero-section">
-        <div className="hero-content">
-          <Title level={1} className="hero-title">
-            Добро пожаловать в мир духовных практик
-          </Title>
-          <Paragraph className="hero-description">
-            Найдите своего наставника среди проверенных экспертов в области 
-            духовного развития, парапсихологии, астрологии и других практик
-          </Paragraph>
-          <div className="hero-actions">
-            <Button 
-              type="primary" 
-              size="large" 
-              icon={<SearchOutlined />}
-              onClick={() => navigate('/experts')}
-              className="hero-button"
-            >
-              Найти эксперта
-            </Button>
-            <Button 
-              size="large" 
-              icon={<FileTextOutlined />}
+      {/* Bento Grid */}
+      <div className="bento-grid">
+        {/* Hero Section - Большая карточка */}
+        <Card className="bento-card hero-card">
+          <div className="hero-content">
+            <Title level={1} className="hero-title">
+              Духовные практики
+            </Title>
+            <Paragraph className="hero-description">
+              Найдите своего наставника
+            </Paragraph>
+            <div className="hero-actions">
+              <Button
+                type="primary"
+                size="large"
+                icon={<SearchOutlined />}
+                onClick={() => navigate('/experts')}
+                className="hero-button"
+              >
+                Найти эксперта
+              </Button>
+              <Button
+                size="large"
+                icon={<FileTextOutlined />}
+                onClick={() => navigate('/articles')}
+                className="hero-button secondary"
+              >
+                Статьи
+              </Button>
+            </div>
+          </div>
+        </Card>
+
+        {/* Features - Разные размеры */}
+        <Card className="bento-card feature-card large">
+          <div className="feature-icon">
+            <TeamOutlined />
+          </div>
+          <Title level={4}>Проверенные эксперты</Title>
+          <Paragraph>Все мастера проходят тщательную проверку</Paragraph>
+        </Card>
+
+        <Card className="bento-card feature-card">
+          <div className="feature-icon">
+            <FileTextOutlined />
+          </div>
+          <Title level={4}>Качественные материалы</Title>
+          <Paragraph>Изучайте практики через экспертные статьи</Paragraph>
+        </Card>
+
+        <Card className="bento-card feature-card">
+          <div className="feature-icon">
+            <SearchOutlined />
+          </div>
+          <Title level={4}>Удобный поиск</Title>
+          <Paragraph>Фильтры по тематикам и городам</Paragraph>
+        </Card>
+
+        {/* Articles - Bento стиль */}
+        <Card className="bento-card articles-card">
+          <div className="section-header">
+            <Title level={4}>Последние статьи</Title>
+            <Button
+              type="link"
               onClick={() => navigate('/articles')}
-              className="hero-button secondary"
+              className="view-all-button"
             >
-              Читать статьи
+              Все
             </Button>
           </div>
-        </div>
-      </section>
 
-      <div className="home-content">
-        {/* Features Section */}
-        <section className="features-section">
-        <Row gutter={[24, 24]}>
-          <Col xs={24} md={8}>
-            <Card className="feature-card" variant="outlined">
-              <div className="feature-icon">
-                <TeamOutlined />
-              </div>
-              <Title level={4}>Проверенные эксперты</Title>
-              <Paragraph>
-                Все мастера проходят тщательную проверку. 
-                Читайте отзывы и выбирайте лучших специалистов.
-              </Paragraph>
-            </Card>
-          </Col>
-          <Col xs={24} md={8}>
-            <Card className="feature-card" variant="outlined">
-              <div className="feature-icon">
-                <FileTextOutlined />
-              </div>
-              <Title level={4}>Образовательные статьи</Title>
-              <Paragraph>
-                Изучайте различные духовные практики через 
-                качественные материалы от экспертов.
-              </Paragraph>
-            </Card>
-          </Col>
-          <Col xs={24} md={8}>
-            <Card className="feature-card" variant="outlined">
-              <div className="feature-icon">
-                <SearchOutlined />
-              </div>
-              <Title level={4}>Удобный поиск</Title>
-              <Paragraph>
-                Фильтруйте экспертов по тематикам, городу 
-                и типу услуг для быстрого поиска подходящего специалиста.
-              </Paragraph>
-            </Card>
-          </Col>
-        </Row>
-      </section>
+          <Tabs
+            activeKey={activeTab}
+            onChange={setActiveTab}
+            className="articles-tabs"
+            items={[
+              {
+                key: 'new',
+                label: 'Новые',
+              },
+              {
+                key: 'popular',
+                label: 'Популярные',
+              },
+            ]}
+          />
 
-      {/* Articles Section */}
-      <section className="articles-section">
-        <div className="section-header">
-          <Title level={2}>Последние статьи</Title>
-          <Button 
-            type="link" 
-            onClick={() => navigate('/articles')}
-            className="view-all-button"
-          >
-            Смотреть все
-          </Button>
-        </div>
-
-        <Tabs 
-          activeKey={activeTab} 
-          onChange={setActiveTab}
-          className="articles-tabs"
-          items={[
-            {
-              key: 'new',
-              label: 'Новые',
-            },
-            {
-              key: 'popular',
-              label: 'Популярные',
-            },
-          ]}
-        />
-
-        {loading ? (
-          <div className="loading-container">
-            <Spin size="large" />
-          </div>
-        ) : articles.length === 0 ? (
-          <Empty description="Пока нет статей" />
-        ) : (
-          <Row gutter={[24, 24]}>
-            {articles.map((article) => (
-              <Col xs={24} sm={12} lg={8} key={article.id}>
-                <Card 
-                  className="article-card"
+          {loading ? (
+            <div className="loading-container">
+              <Spin size="large" />
+            </div>
+          ) : articles.length === 0 ? (
+            <Empty description="Пока нет статей" />
+          ) : (
+            <div className="articles-grid">
+              {articles.slice(0, 4).map((article, index) => (
+                <Card
+                  key={article.id}
+                  className={`article-card ${index === 0 ? 'featured' : ''}`}
                   hoverable
-                  cover={
-                    article.coverImage ? (
-                      <div className="article-cover">
-                        <img 
-                          src={article.coverImage} 
-                          alt={article.title}
-                          onError={(e) => {
-                            e.currentTarget.style.display = 'none';
-                          }}
-                        />
-                      </div>
+                  onClick={() => navigate(`/articles/${article.id}`)}
+                >
+                  <div className="article-cover">
+                    {article.coverImage ? (
+                      <img
+                        src={article.coverImage}
+                        alt={article.title}
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                        }}
+                      />
                     ) : (
                       <div className="article-cover-placeholder">
                         <FileTextOutlined />
                       </div>
-                    )
-                  }
-                  onClick={() => navigate(`/articles/${article.id}`)}
-                >
-                  <Card.Meta
-                    title={
-                      <Title level={5} className="article-title">
-                        {truncateText(article.title, 60)}
-                      </Title>
-                    }
-                    description={
-                      <div className="article-meta">
-                        <Paragraph className="article-excerpt">
-                          {truncateText(article.excerpt || '', 100)}
-                        </Paragraph>
-                        <div className="article-info">
-                          <Text className="article-author">
-                            {article.firstName} {article.lastName}
-                          </Text>
-                          <div className="article-stats">
-                            <span className="stat-item">
-                              <EyeOutlined />
-                              {article.viewsCount}
-                            </span>
-                            <span className="stat-item">
-                              <HeartOutlined />
-                              {article.likesCount}
-                            </span>
-                            <span className="stat-item">
-                              <ClockCircleOutlined />
-                              {formatDate(article.createdAt)}
-                            </span>
-                          </div>
-                        </div>
+                    )}
+                  </div>
+                  <div className="article-content">
+                    <Title level={5} className="article-title">
+                      {truncateText(article.title, index === 0 ? 40 : 30)}
+                    </Title>
+                    <Text className="article-excerpt">
+                      {truncateText(article.excerpt || '', 80)}
+                    </Text>
+                    <div className="article-meta">
+                      <Text className="article-author">
+                        {article.firstName} {article.lastName}
+                      </Text>
+                      <div className="article-stats">
+                        <span className="stat-item">
+                          <EyeOutlined />
+                          {article.viewsCount}
+                        </span>
+                        <span className="stat-item">
+                          <HeartOutlined />
+                          {article.likesCount}
+                        </span>
                       </div>
-                    }
-                  />
+                    </div>
+                  </div>
                 </Card>
-              </Col>
-            ))}
-          </Row>
-        )}
-      </section>
+              ))}
+            </div>
+          )}
+        </Card>
 
-      {/* CTA Section */}
-      <section className="cta-section">
-        <Card className="cta-card">
+        {/* CTA - Большая карточка */}
+        <Card className="bento-card cta-card">
           <div className="cta-content">
-            <Title level={3}>Готовы начать свой путь?</Title>
+            <Title level={3}>Начните свой путь</Title>
             <Paragraph>
-              Присоединяйтесь к нашему сообществу и найдите своего наставника 
-              в мире духовных практик
+              Присоединяйтесь к сообществу духовных практик
             </Paragraph>
-            <Button 
-              type="primary" 
+            <Button
+              type="primary"
               size="large"
               onClick={() => navigate('/experts')}
               className="cta-button"
@@ -285,7 +245,6 @@ const HomePage: React.FC = () => {
             </Button>
           </div>
         </Card>
-      </section>
       </div>
     </div>
   );
