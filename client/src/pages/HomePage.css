@@ -1,0 +1,378 @@
+.home-page {
+  padding: 0;
+}
+
+.home-content {
+  padding: 0 24px;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 80px 24px;
+  text-align: center;
+  margin: 0 0 40px 0;
+}
+
+.hero-content {
+  width: 100%;
+  padding: 0 24px;
+}
+
+.hero-title {
+  color: white !important;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+
+.hero-description {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-button {
+  height: 48px;
+  padding: 0 32px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+}
+
+.hero-button.secondary {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  backdrop-filter: blur(10px);
+}
+
+.hero-button.secondary:hover {
+  background: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+/* Features Section */
+.features-section {
+  margin-bottom: 60px;
+}
+
+.feature-card {
+  text-align: center;
+  padding: 32px 24px;
+  height: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  color: #6366f1;
+  margin-bottom: 24px;
+}
+
+.feature-card .ant-typography h4 {
+  margin-bottom: 16px;
+  color: #1f2937;
+}
+
+.feature-card .ant-typography p {
+  color: #6b7280;
+  margin-bottom: 0;
+  line-height: 1.6;
+}
+
+/* Articles Section */
+.articles-section {
+  margin-bottom: 60px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.section-header .ant-typography h2 {
+  margin-bottom: 0;
+  color: #1f2937;
+}
+
+.view-all-button {
+  font-weight: 600;
+  color: #6366f1;
+}
+
+.articles-tabs {
+  margin-bottom: 32px;
+}
+
+.articles-tabs .ant-tabs-tab {
+  font-weight: 600;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  padding: 60px 0;
+}
+
+.article-card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  border: 1px solid #f0f0f0;
+}
+
+.article-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.article-cover {
+  height: 200px;
+  overflow: hidden;
+  background: #f8f9fa;
+}
+
+.article-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.article-card:hover .article-cover img {
+  transform: scale(1.05);
+}
+
+.article-cover-placeholder {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  color: #6c757d;
+  font-size: 3rem;
+}
+
+.article-title {
+  margin-bottom: 12px !important;
+  color: #1f2937;
+  line-height: 1.4;
+}
+
+.article-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.article-excerpt {
+  color: #6b7280 !important;
+  margin-bottom: 0 !important;
+  line-height: 1.5;
+}
+
+.article-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.article-author {
+  color: #6366f1;
+  font-weight: 600;
+}
+
+.article-stats {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.stat-item .anticon {
+  font-size: 12px;
+}
+
+/* CTA Section */
+.cta-section {
+  margin-bottom: 40px;
+}
+
+.cta-card {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.cta-card .ant-card-body {
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.cta-content .ant-typography h3 {
+  color: white !important;
+  margin-bottom: 16px;
+  font-size: 2rem;
+}
+
+.cta-content .ant-typography p {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 1.1rem;
+  margin-bottom: 32px;
+}
+
+.cta-button {
+  height: 48px;
+  padding: 0 32px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  background: white;
+  color: #6366f1;
+  border: none;
+}
+
+.cta-button:hover {
+  background: #f8f9fa;
+  color: #6366f1;
+  transform: translateY(-2px);
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 60px 0;
+    margin: 0 -16px 32px -16px;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+  }
+
+  .hero-description {
+    font-size: 1.1rem;
+    margin-bottom: 32px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-button {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .features-section {
+    margin-bottom: 40px;
+  }
+
+  .feature-card {
+    padding: 24px 20px;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .articles-section {
+    margin-bottom: 40px;
+  }
+
+  .cta-card .ant-card-body {
+    padding: 40px 24px;
+  }
+
+  .cta-content .ant-typography h3 {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    margin: 0 -12px 24px -12px;
+    padding: 40px 0;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .hero-button {
+    height: 44px;
+    font-size: 15px;
+  }
+
+  .feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+
+  .article-cover,
+  .article-cover-placeholder {
+    height: 160px;
+  }
+
+  .article-cover-placeholder {
+    font-size: 2.5rem;
+  }
+
+  .article-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .cta-content .ant-typography h3 {
+    font-size: 1.4rem;
+  }
+
+  .cta-content .ant-typography p {
+    font-size: 1rem;
+  }
+
+  .cta-button {
+    width: 100%;
+    max-width: 200px;
+  }
+}

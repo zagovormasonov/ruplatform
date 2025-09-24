@@ -1,0 +1,345 @@
+.expert-profile-page {
+  padding: 24px;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+/* Основная карточка эксперта */
+.expert-main-card {
+  margin-bottom: 24px;
+}
+
+.expert-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.expert-avatar {
+  flex-shrink: 0;
+}
+
+.expert-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.expert-name {
+  margin-bottom: 16px !important;
+  color: #1f2937;
+}
+
+.expert-rating {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.rating-text {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.expert-location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6b7280;
+  margin-bottom: 24px;
+}
+
+.expert-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.expert-bio {
+  margin-top: 24px;
+}
+
+.expert-bio .ant-typography h4 {
+  margin-bottom: 16px;
+  color: #1f2937;
+}
+
+.expert-topics .ant-typography h4 {
+  margin-bottom: 16px;
+  color: #1f2937;
+}
+
+.topics-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.topic-tag {
+  border-radius: 6px;
+  font-size: 13px;
+  padding: 4px 12px;
+}
+
+/* Услуги */
+.services-card {
+  margin-bottom: 24px;
+}
+
+.service-item .ant-list-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.service-item:last-child .ant-list-item {
+  border-bottom: none;
+}
+
+.service-card {
+  width: 100%;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+}
+
+.service-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.service-title {
+  margin-bottom: 0 !important;
+  color: #1f2937;
+  flex: 1;
+}
+
+.service-price {
+  font-size: 18px;
+  font-weight: 600;
+  color: #6366f1;
+  white-space: nowrap;
+  margin-left: 16px;
+}
+
+.service-description {
+  color: #6b7280 !important;
+  margin-bottom: 16px !important;
+}
+
+.service-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.service-detail {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+/* Отзывы */
+.reviews-card {
+  margin-bottom: 24px;
+}
+
+.review-item {
+  width: 100%;
+}
+
+.review-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.review-author {
+  flex: 1;
+}
+
+.review-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.review-date {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.review-content {
+  margin-left: 54px;
+  color: #374151;
+  line-height: 1.5;
+}
+
+/* Боковая панель */
+.stats-card {
+  margin-bottom: 24px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.stat-item:last-child {
+  border-bottom: none;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: #6366f1;
+}
+
+.stat-label {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.price-card {
+  margin-bottom: 24px;
+}
+
+.price-range {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.price-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price-value {
+  color: #6366f1;
+  font-size: 16px;
+}
+
+.contact-card {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  border: none;
+  color: white;
+}
+
+.contact-card .ant-card-body {
+  padding: 24px;
+}
+
+.contact-info .ant-typography h5 {
+  color: white !important;
+  margin-bottom: 12px;
+}
+
+.contact-info .ant-typography p {
+  color: rgba(255, 255, 255, 0.9) !important;
+  margin-bottom: 20px;
+}
+
+.contact-card .ant-btn-primary {
+  background: white;
+  color: #6366f1;
+  border: none;
+  font-weight: 600;
+}
+
+.contact-card .ant-btn-primary:hover {
+  background: #f8f9fa;
+  color: #6366f1;
+  transform: translateY(-1px);
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+  .expert-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .expert-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .expert-actions {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .expert-actions .ant-btn {
+    flex: 1;
+  }
+
+  .service-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .service-price {
+    margin-left: 0;
+  }
+
+  .service-details {
+    justify-content: center;
+  }
+
+  .stats-card .ant-card-body {
+    padding: 16px;
+  }
+
+  .stat-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 4px;
+  }
+
+  .price-range {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .expert-avatar {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  .expert-name {
+    font-size: 1.4rem;
+  }
+
+  .service-details {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .topics-list {
+    justify-content: center;
+  }
+
+  .topic-tag {
+    font-size: 11px;
+    padding: 2px 8px;
+  }
+}

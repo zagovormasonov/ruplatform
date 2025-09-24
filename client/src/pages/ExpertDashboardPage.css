@@ -1,0 +1,55 @@
+.expert-dashboard {
+  width: 100%;
+  padding: 24px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.dashboard-header .ant-typography h2 {
+  margin-bottom: 0;
+  color: #1f2937;
+}
+
+.stats-row {
+  margin-bottom: 24px;
+}
+
+.stats-row .ant-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.main-content {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.services-tab,
+.articles-tab {
+  padding: 16px 0;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+  .expert-dashboard {
+    margin: 0 -16px;
+    padding: 0 16px;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .dashboard-header .ant-space {
+    justify-content: center;
+  }
+}

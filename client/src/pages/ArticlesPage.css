@@ -1,0 +1,257 @@
+.articles-page {
+  padding: 24px;
+}
+
+.articles-header {
+  margin-bottom: 32px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.header-text .ant-typography h2 {
+  margin-bottom: 8px;
+  color: #1f2937;
+}
+
+.header-text .ant-typography p {
+  color: #6b7280;
+  font-size: 16px;
+  margin-bottom: 0;
+}
+
+.create-article-btn {
+  border-radius: 8px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.articles-filters {
+  margin-bottom: 32px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.articles-filters .ant-tabs {
+  margin-bottom: 0;
+}
+
+.articles-filters .ant-tabs-tab {
+  font-weight: 600;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+/* Карточки статей */
+.article-card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+  border: 1px solid #f0f0f0;
+}
+
+.article-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.article-cover {
+  height: 200px;
+  overflow: hidden;
+  background: #f8f9fa;
+}
+
+.article-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.article-card:hover .article-cover img {
+  transform: scale(1.05);
+}
+
+.article-cover-placeholder {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  color: #6c757d;
+  font-size: 3rem;
+}
+
+.article-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.article-author {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.author-name {
+  color: #6366f1;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.article-date {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.article-title {
+  margin-bottom: 12px !important;
+  color: #1f2937;
+  line-height: 1.4;
+  min-height: 48px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.article-excerpt {
+  color: #6b7280 !important;
+  margin-bottom: 16px !important;
+  line-height: 1.5;
+  min-height: 60px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.article-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.stat-item .anticon {
+  font-size: 12px;
+}
+
+/* Пагинация */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .create-article-btn {
+    width: 100%;
+  }
+
+  .articles-filters {
+    padding: 16px;
+  }
+
+  .articles-filters .ant-row {
+    flex-direction: column-reverse;
+  }
+
+  .articles-filters .ant-col {
+    width: 100% !important;
+  }
+
+  .article-cover,
+  .article-cover-placeholder {
+    height: 160px;
+  }
+
+  .article-cover-placeholder {
+    font-size: 2.5rem;
+  }
+
+  .article-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .article-stats {
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .article-title {
+    min-height: auto;
+  }
+
+  .article-excerpt {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .articles-page {
+    margin: 0 -12px;
+    padding: 0 12px;
+  }
+
+  .articles-header {
+    margin-bottom: 24px;
+  }
+
+  .header-text .ant-typography h2 {
+    font-size: 1.5rem;
+  }
+
+  .articles-filters {
+    margin: 0 -12px 24px -12px;
+    border-radius: 0;
+  }
+
+  .article-card {
+    margin-bottom: 16px;
+  }
+
+  .article-stats {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .stat-item {
+    flex: 1;
+    justify-content: center;
+  }
+}

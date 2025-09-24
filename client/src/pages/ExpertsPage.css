@@ -1,0 +1,229 @@
+.experts-page {
+  padding: 24px;
+}
+
+.experts-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.experts-header .ant-typography h2 {
+  margin-bottom: 8px;
+  color: #1f2937;
+}
+
+.experts-header .ant-typography p {
+  color: #6b7280;
+  font-size: 16px;
+}
+
+/* Фильтры */
+.filters-card {
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+.filter-section {
+  margin-bottom: 24px;
+}
+
+.filter-section:last-child {
+  margin-bottom: 0;
+}
+
+.topics-checkboxes {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 8px;
+  padding: 4px;
+}
+
+.topics-checkboxes .ant-checkbox-wrapper {
+  display: block;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+/* Результаты поиска */
+.search-results-header {
+  margin-bottom: 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+/* Карточки экспертов */
+.expert-card {
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  height: 100%;
+  border: 1px solid #f0f0f0;
+}
+
+.expert-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.expert-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.expert-avatar {
+  flex-shrink: 0;
+}
+
+.expert-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.expert-name {
+  margin-bottom: 4px !important;
+  color: #1f2937;
+  line-height: 1.3;
+}
+
+.expert-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.rating-text {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.expert-location {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.expert-bio {
+  color: #6b7280 !important;
+  margin-bottom: 16px !important;
+  line-height: 1.5;
+}
+
+.expert-topics {
+  margin-bottom: 16px;
+}
+
+.topic-tag {
+  margin-bottom: 4px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+.expert-services {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.services-count {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.price-from {
+  font-weight: 600;
+  color: #6366f1;
+}
+
+/* Пагинация */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+  .experts-page {
+    padding: 16px;
+  }
+  .experts-header {
+    margin-bottom: 24px;
+  }
+
+  .filters-card {
+    position: static;
+    max-height: none;
+    overflow-y: visible;
+    margin-bottom: 24px;
+  }
+
+  .filter-section {
+    margin-bottom: 20px;
+  }
+
+  .topics-checkboxes {
+    max-height: 200px;
+  }
+
+  .expert-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .expert-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .expert-location {
+    justify-content: center;
+  }
+
+  .expert-services {
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .search-results-header {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .expert-card {
+    margin-bottom: 16px;
+  }
+
+  .expert-topics .topic-tag {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+
+  .pagination-container .ant-pagination {
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,264 @@
+.article-page {
+  width: 100%;
+  padding: 24px;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.article-header {
+  margin-bottom: 24px;
+}
+
+.back-button {
+  border-radius: 6px;
+}
+
+.article-cover {
+  margin-bottom: 32px;
+  border-radius: 16px;
+  overflow: hidden;
+  max-height: 400px;
+}
+
+.article-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.article-card {
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 24px;
+}
+
+.article-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.author-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.author-name {
+  color: #1f2937;
+  font-size: 16px;
+}
+
+.article-date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.article-stats .stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6b7280;
+}
+
+.article-header-content {
+  margin-bottom: 32px;
+}
+
+.article-title {
+  margin-bottom: 16px !important;
+  color: #1f2937;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.article-excerpt {
+  color: #6b7280 !important;
+  font-size: 18px;
+  line-height: 1.6;
+  font-style: italic;
+  margin-bottom: 0 !important;
+  padding: 20px;
+  background: #f8f9fa;
+  border-left: 4px solid #6366f1;
+  border-radius: 0 8px 8px 0;
+}
+
+.article-body {
+  margin-bottom: 32px;
+}
+
+.article-paragraph {
+  color: #374151 !important;
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 20px !important;
+  text-align: justify;
+}
+
+.article-paragraph:last-child {
+  margin-bottom: 0 !important;
+}
+
+.article-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 24px;
+}
+
+.like-button {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.like-button:hover {
+  transform: scale(1.05);
+}
+
+.share-section {
+  text-align: right;
+}
+
+/* Карточка автора */
+.author-card {
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.author-card-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.author-card-info {
+  flex: 1;
+}
+
+.author-card-info .ant-typography h4 {
+  margin-bottom: 4px;
+  color: #1f2937;
+}
+
+.author-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.author-actions .ant-btn {
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+  .article-page {
+    margin: 0 -16px;
+    padding: 0 16px;
+  }
+
+  .article-cover {
+    margin: 0 -16px 24px -16px;
+    border-radius: 0;
+  }
+
+  .article-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .article-stats {
+    align-self: stretch;
+  }
+
+  .article-title {
+    font-size: 1.8rem;
+  }
+
+  .article-excerpt {
+    font-size: 16px;
+    padding: 16px;
+  }
+
+  .article-paragraph {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .article-actions {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .share-section {
+    text-align: center;
+  }
+
+  .author-card-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .author-actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .article-page {
+    margin: 0 -12px;
+    padding: 0 12px;
+  }
+
+  .article-cover {
+    margin: 0 -12px 20px -12px;
+  }
+
+  .article-title {
+    font-size: 1.6rem;
+  }
+
+  .article-excerpt {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  .article-paragraph {
+    font-size: 14px;
+    margin-bottom: 16px !important;
+  }
+
+  .author-info {
+    gap: 12px;
+  }
+
+  .author-actions {
+    flex-direction: column;
+  }
+
+  .author-actions .ant-btn {
+    width: 100%;
+  }
+}
