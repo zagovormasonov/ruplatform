@@ -5,8 +5,8 @@
 /* Dribbble Style Bento Grid */
 .bento-grid {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(6, minmax(200px, auto));
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(5, minmax(200px, auto));
   gap: 20px;
   padding: 40px;
   max-width: 1600px;
@@ -30,7 +30,7 @@
 
 /* Hero Card - Слева */
 .hero-card {
-  grid-column: span 4;
+  grid-column: span 5;
   grid-row: span 3;
   background: white;
   color: #1f2937;
@@ -182,8 +182,6 @@
 
 /* Feature Cards */
 .feature-card {
-  grid-column: span 1;
-  grid-row: span 1;
   padding: 24px;
   text-align: center;
   display: flex;
@@ -214,14 +212,12 @@
 
 /* Popular Categories Card */
 .categories-card-main {
-  grid-column: span 5;
+  grid-column: span 3;
   grid-row: span 2;
   padding: 32px;
 }
 
 .categories-card {
-  grid-column: span 1;
-  grid-row: span 1;
   padding: 24px;
 }
 
@@ -254,7 +250,7 @@
 
 /* Featured Articles Card */
 .articles-card {
-  grid-column: span 12;
+  grid-column: span 5;
   grid-row: span 2;
   padding: 32px;
 }
@@ -381,8 +377,8 @@
 
 /* CTA Card */
 .cta-card {
-  grid-column: span 12;
-  grid-row: span 1;
+  grid-column: span 3;
+  grid-row: span 2;
   background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
   padding: 40px;
   display: flex;
@@ -534,57 +530,49 @@
 /* Мобильная адаптация */
 @media (max-width: 1400px) {
   .bento-grid {
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(6, 1fr);
   }
 
   .hero-card {
-    grid-column: span 3;
+    grid-column: span 4;
   }
 
   .categories-card-main {
-    grid-column: span 3;
-  }
-
-  .feature-card {
-    grid-column: span 1;
-  }
-
-  .categories-card {
-    grid-column: span 1;
+    grid-column: span 2;
   }
 }
 
 @media (max-width: 1200px) {
   .bento-grid {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 16px;
   }
 
   .hero-card {
-    grid-column: span 3;
+    grid-column: span 4;
     grid-row: span 2;
   }
 
   .categories-card-main {
-    grid-column: span 3;
+    grid-column: span 4;
     grid-row: span 1;
   }
 
-  .feature-card,
-  .categories-card {
-    grid-column: span 2;
+  .categories-card,
+  .articles-card {
+    grid-column: span 4;
   }
 
-  .articles-card,
   .cta-card {
-    grid-column: span 6;
+    grid-column: span 4;
+    grid-row: span 1;
   }
 }
 
 @media (max-width: 768px) {
   .bento-grid {
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(10, minmax(200px, auto));
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(8, minmax(200px, auto));
     gap: 16px;
     padding: 24px;
   }
@@ -603,20 +591,11 @@
     font-size: 1rem;
   }
 
-  .categories-card-main {
-    grid-column: span 2;
-    grid-row: span 1;
-  }
-
-  .feature-card,
-  .categories-card {
-    grid-column: span 1;
-    grid-row: span 1;
-  }
-
+  .categories-card-main,
+  .categories-card,
   .articles-card,
   .cta-card {
-    grid-column: span 4;
+    grid-column: span 2;
     grid-row: span 1;
   }
 
@@ -633,31 +612,18 @@
 
 @media (max-width: 480px) {
   .bento-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(12, minmax(200px, auto));
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(10, minmax(200px, auto));
     gap: 16px;
     padding: 16px;
   }
 
-  .hero-card {
-    grid-column: span 2;
-    grid-row: span 2;
-  }
-
-  .categories-card-main {
-    grid-column: span 2;
-    grid-row: span 1;
-  }
-
-  .feature-card,
-  .categories-card {
-    grid-column: span 1;
-    grid-row: span 1;
-  }
-
+  .hero-card,
+  .categories-card-main,
+  .categories-card,
   .articles-card,
   .cta-card {
-    grid-column: span 2;
+    grid-column: span 1;
     grid-row: span 1;
   }
 
@@ -680,10 +646,11 @@
     max-width: 200px;
   }
 
+  .stats-grid,
   .categories-list-main {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .featured-articles {
