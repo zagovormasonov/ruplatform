@@ -114,18 +114,27 @@ router.get('/:chatId/messages', authenticateToken, async (req: AuthRequest, res)
 
     // Получение сообщений
     const result = await pool.query(`
-      SELECT m.*, u.first_name, u.last_name, u.avatar_url
+      SELECT
+        m.id,
+        m.chat_id,
+        m.sender_id,
+        m.content,
+        m.is_read,
+        m.created_at,
+        u.first_name,
+        u.last_name,
+        u.avatar_url,
+        u.role
       FROM messages m
       JOIN users u ON m.sender_id = u.id
       WHERE m.chat_id = $1
-      ORDER BY m.created_at DESC
-      LIMIT $2 OFFSET $3
-    `, [chatId, Number(limit), offset]);
+      ORDER BY m.created_at ASC
+    `, [chatId]);
 
     // Пометка сообщений как прочитанных
     await pool.query(`
-      UPDATE messages 
-      SET is_read = true 
+      UPDATE messages
+      SET is_read = true
       WHERE chat_id = $1 AND sender_id != $2 AND is_read = false
     `, [chatId, userId]);
 
@@ -136,8 +145,23 @@ router.get('/:chatId/messages', authenticateToken, async (req: AuthRequest, res)
     );
     const total = parseInt(countResult.rows[0].total);
 
+    // Формируем правильный ответ
+    const messages = result.rows.map(row => ({
+      id: row.id,
+      chatId: row.chat_id,
+      senderId: row.sender_id,
+      content: row.content,
+      isRead: row.is_read,
+      createdAt: row.created_at,
+      firstName: row.first_name,
+      lastName: row.last_name,
+      avatarUrl: row.avatar_url
+    }));
+
+    console.log('Spiritual Platform Server: Sending messages:', messages);
+
     res.json({
-      messages: result.rows.reverse(), // Реверс для правильного порядка
+      messages: messages,
       pagination: {
         page: Number(page),
         limit: Number(limit),
@@ -181,7 +205,7 @@ router.post('/:chatId/messages', authenticateToken, async (req: AuthRequest, res
 
     // Обновление последнего сообщения в чате
     await pool.query(`
-      UPDATE chats 
+      UPDATE chats
       SET last_message = $1, last_message_at = NOW()
       WHERE id = $2
     `, [content.trim(), chatId]);
@@ -193,11 +217,18 @@ router.post('/:chatId/messages', authenticateToken, async (req: AuthRequest, res
     `, [userId]);
 
     const message = {
-      ...messageResult.rows[0],
-      ...senderResult.rows[0]
+      id: messageResult.rows[0].id,
+      chatId: messageResult.rows[0].chat_id,
+      senderId: messageResult.rows[0].sender_id,
+      content: messageResult.rows[0].content,
+      isRead: messageResult.rows[0].is_read,
+      createdAt: messageResult.rows[0].created_at,
+      firstName: senderResult.rows[0].first_name,
+      lastName: senderResult.rows[0].last_name,
+      avatarUrl: senderResult.rows[0].avatar_url
     };
 
-    console.log(`Spiritual Platform: Сообщение отправлено в чат ${chatId} от пользователя ${userId}`);
+    console.log(`Spiritual Platform: Сообщение отправлено в чат ${chatId} от пользователя ${userId}:`, message);
     res.status(201).json(message);
   } catch (error) {
     console.error('Spiritual Platform: Ошибка отправки сообщения:', error);

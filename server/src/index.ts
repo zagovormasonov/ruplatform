@@ -75,17 +75,39 @@ io.on('connection', (socket) => {
       );
 
       const message = messageResult.rows[0];
-      
+
+      // Получение информации об отправителе
+      const senderResult = await pool.query(
+        'SELECT first_name, last_name, avatar_url FROM users WHERE id = $1',
+        [senderId]
+      );
+
+      const sender = senderResult.rows[0];
+
       // Отправка сообщения всем участникам чата
       io.to(`chat_${chatId}`).emit('new_message', {
         id: message.id,
         chatId: message.chat_id,
         senderId: message.sender_id,
         content: message.content,
-        createdAt: message.created_at
+        isRead: message.is_read,
+        createdAt: message.created_at,
+        firstName: sender.first_name,
+        lastName: sender.last_name,
+        avatarUrl: sender.avatar_url
       });
 
-      console.log(`Spiritual Platform: Сообщение отправлено в чат ${chatId}`);
+      console.log(`Spiritual Platform: Сообщение отправлено в чат ${chatId} от пользователя ${senderId}:`, {
+        id: message.id,
+        chatId: message.chat_id,
+        senderId: message.sender_id,
+        content: message.content,
+        isRead: message.is_read,
+        createdAt: message.created_at,
+        firstName: sender.first_name,
+        lastName: sender.last_name,
+        avatarUrl: sender.avatar_url
+      });
     } catch (error) {
       console.error('Spiritual Platform: Ошибка отправки сообщения:', error);
       socket.emit('message_error', { error: 'Не удалось отправить сообщение' });
