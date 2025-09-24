@@ -133,16 +133,34 @@ const ChatPage: React.FC = () => {
   const loadChatMessages = async (selectedChatId: string) => {
     try {
       setMessagesLoading(true);
-      
+
       // Получение информации о чате
       const chatInfo = await chatsAPI.getChatInfo(selectedChatId);
+      console.log('Spiritual Platform: Chat info loaded:', chatInfo);
       setCurrentChat(chatInfo);
-      
+
       // Получение сообщений
       const messagesData = await chatsAPI.getMessages(selectedChatId, {
         page: 1,
         limit: 50
       });
+
+      console.log('Spiritual Platform: Messages loaded from API:', messagesData.messages);
+
+      // Логируем каждое сообщение для отладки
+      messagesData.messages.forEach((msg, index) => {
+        console.log(`Spiritual Platform: Message ${index}:`, {
+          id: msg.id,
+          senderId: msg.senderId,
+          userId: user?.id,
+          isOwn: user ? msg.senderId === user.id : false,
+          firstName: msg.firstName,
+          lastName: msg.lastName,
+          content: msg.content,
+          createdAt: msg.createdAt
+        });
+      });
+
       setMessages(messagesData.messages);
     } catch (error) {
       console.error('Spiritual Platform: Ошибка загрузки сообщений:', error);
@@ -156,7 +174,7 @@ const ChatPage: React.FC = () => {
 
     try {
       setSendingMessage(true);
-      
+
       const messageData = {
         chatId: parseInt(chatId),
         senderId: user.id,
@@ -164,6 +182,12 @@ const ChatPage: React.FC = () => {
       };
 
       console.log('Spiritual Platform: Отправка сообщения:', messageData);
+      console.log('Spiritual Platform: User info:', {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email
+      });
 
       if (socket && socket.connected) {
         // Отправка через Socket.IO
@@ -173,23 +197,28 @@ const ChatPage: React.FC = () => {
         // Fallback: отправка через HTTP API
         console.log('Spiritual Platform: Socket не подключен, используем HTTP API');
         const sentMessage = await chatsAPI.sendMessage(chatId, newMessage.trim());
-        
+
+        console.log('Spiritual Platform: Message sent via HTTP:', sentMessage);
+
         // Добавляем сообщение в локальный стейт
         const newMsg: Message = {
           id: sentMessage.id,
           chatId: parseInt(chatId),
           senderId: user.id,
           content: newMessage.trim(),
-          createdAt: new Date().toISOString(),
+          createdAt: sentMessage.createdAt || new Date().toISOString(),
           isRead: true,
           firstName: user.firstName,
           lastName: user.lastName,
           avatarUrl: user.avatarUrl
         };
+
+        console.log('Spiritual Platform: Adding message to state:', newMsg);
+
         setMessages(prev => [...prev, newMsg]);
         scrollToBottom();
       }
-      
+
       setNewMessage('');
     } catch (error) {
       console.error('Spiritual Platform: Ошибка отправки сообщения:', error);
@@ -210,32 +239,67 @@ const ChatPage: React.FC = () => {
   };
 
   const formatMessageTime = (dateString: string) => {
-    if (!dateString) return '';
+    if (!dateString) {
+      console.log('Spiritual Platform: dateString is empty');
+      return '';
+    }
 
-    const date = new Date(dateString);
-    if (isNaN(date.getTime())) return '';
+    console.log('Spiritual Platform: Formatting date:', dateString);
+
+    let date: Date;
+
+    // Если дата уже в формате ISO, парсим как есть
+    if (dateString.includes('T') || dateString.includes('Z')) {
+      date = new Date(dateString);
+    } else {
+      // Если дата в формате без времени, добавляем время
+      date = new Date(dateString + 'T00:00:00');
+    }
+
+    console.log('Spiritual Platform: Parsed date:', date);
+    console.log('Spiritual Platform: Is valid:', !isNaN(date.getTime()));
+
+    if (isNaN(date.getTime())) {
+      console.log('Spiritual Platform: Invalid date, trying alternative parsing');
+      // Попробуем другой формат
+      const timestamp = Date.parse(dateString);
+      if (!isNaN(timestamp)) {
+        date = new Date(timestamp);
+      } else {
+        console.log('Spiritual Platform: Cannot parse date:', dateString);
+        return '';
+      }
+    }
 
     const now = new Date();
     const diffInHours = (now.getTime() - date.getTime()) / (1000 * 60 * 60);
 
+    console.log('Spiritual Platform: Date difference in hours:', diffInHours);
+
     if (diffInHours < 24) {
-      return date.toLocaleTimeString('ru-RU', {
+      const timeStr = date.toLocaleTimeString('ru-RU', {
         hour: '2-digit',
         minute: '2-digit'
       });
+      console.log('Spiritual Platform: Formatted as today time:', timeStr);
+      return timeStr;
     } else if (diffInHours < 24 * 7) {
-      return date.toLocaleDateString('ru-RU', {
+      const timeStr = date.toLocaleDateString('ru-RU', {
         weekday: 'short',
         hour: '2-digit',
         minute: '2-digit'
       });
+      console.log('Spiritual Platform: Formatted as week time:', timeStr);
+      return timeStr;
     } else {
-      return date.toLocaleDateString('ru-RU', {
+      const timeStr = date.toLocaleDateString('ru-RU', {
         day: 'numeric',
         month: 'short',
         hour: '2-digit',
         minute: '2-digit'
       });
+      console.log('Spiritual Platform: Formatted as old time:', timeStr);
+      return timeStr;
     }
   };
 
@@ -341,6 +405,9 @@ const ChatPage: React.FC = () => {
                   <Text type="secondary" className="chat-status">
                     {messages.length > 0 ? `${messages.length} сообщений` : 'Нет сообщений'}
                   </Text>
+                  <Text type="secondary" className="chat-debug">
+                    ID: {currentChat.id}, User1: {currentChat.user1Id}, User2: {currentChat.user2Id}
+                  </Text>
                 </div>
               </div>
 
@@ -361,6 +428,17 @@ const ChatPage: React.FC = () => {
                   <div className="messages-list">
                     {messages.map((message) => {
                       const isOwnMessage = message.senderId === user.id;
+
+                      console.log('Spiritual Platform: Rendering message:', {
+                        id: message.id,
+                        senderId: message.senderId,
+                        userId: user?.id,
+                        isOwnMessage,
+                        firstName: message.firstName,
+                        lastName: message.lastName,
+                        content: message.content,
+                        createdAt: message.createdAt
+                      });
 
                       return (
                         <div

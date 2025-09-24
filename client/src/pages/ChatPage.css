@@ -145,6 +145,12 @@
   color: #9ca3af;
 }
 
+.chat-debug {
+  font-size: 10px;
+  color: #d1d5db;
+  font-family: monospace;
+}
+
 .messages-container {
   flex: 1;
   overflow-y: auto;
