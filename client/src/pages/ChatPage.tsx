@@ -358,6 +358,11 @@ const ChatPage: React.FC = () => {
                           />
                         )}
                         <div className="message-content">
+                          {message.senderId !== user.id && (
+                            <Text className="message-sender-name">
+                              {message.firstName} {message.lastName}
+                            </Text>
+                          )}
                           <div className="message-bubble">
                             <Text>{message.content}</Text>
                           </div>

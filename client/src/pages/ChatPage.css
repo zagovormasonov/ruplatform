@@ -154,41 +154,67 @@
   padding: 20px 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
+  max-width: 100%;
 }
 
 .message {
   display: flex;
-  align-items: flex-end;
-  gap: 8px;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
 }
 
 .own-message {
-  flex-direction: row-reverse;
-  align-self: flex-end;
+  justify-content: flex-end;
+  margin-left: 60px;
 }
 
 .other-message {
-  flex-direction: row;
-  align-self: flex-start;
+  justify-content: flex-start;
+  margin-right: 60px;
 }
 
 .message-avatar {
-  margin-bottom: 4px;
+  flex-shrink: 0;
+  margin-top: 20px;
+}
+
+.own-message .message-avatar {
+  order: 2;
 }
 
 .message-content {
   display: flex;
   flex-direction: column;
-  max-width: 70%;
+  max-width: 75%;
+  min-width: 120px;
 }
 
 .own-message .message-content {
   align-items: flex-end;
+  text-align: right;
 }
 
 .other-message .message-content {
   align-items: flex-start;
+  text-align: left;
+}
+
+.own-message .message-sender-name {
+  text-align: right;
+}
+
+.other-message .message-sender-name {
+  text-align: left;
+}
+
+.message-sender-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6366f1;
+  margin-bottom: 4px;
+  padding: 0 4px;
 }
 
 .message-bubble {
@@ -196,11 +222,17 @@
   border-radius: 18px;
   word-wrap: break-word;
   white-space: pre-wrap;
+  background: #f3f4f6;
+  color: #1f2937;
+  border: 1px solid #e5e7eb;
+  line-height: 1.4;
+  margin-bottom: 2px;
 }
 
 .own-message .message-bubble {
   background: #6366f1;
   color: white;
+  border: 1px solid #6366f1;
   border-bottom-right-radius: 4px;
 }
 
@@ -212,10 +244,11 @@
 }
 
 .message-time {
-  font-size: 11px;
+  font-size: 0.75rem;
   color: #9ca3af;
-  margin-top: 4px;
-  padding: 0 4px;
+  margin-top: 2px;
+  padding: 0 8px;
+  opacity: 0.8;
 }
 
 /* Ввод сообщения */
@@ -333,6 +366,33 @@
   }
 }
 
+/* Обновленная мобильная адаптация */
+@media (max-width: 768px) {
+  .message {
+    gap: 8px;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+
+  .message-content {
+    max-width: 85%;
+    min-width: 80px;
+  }
+
+  .message-bubble {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+
+  .message-sender-name {
+    font-size: 0.7rem;
+  }
+
+  .message-time {
+    font-size: 0.7rem;
+  }
+}
+
 @media (max-width: 480px) {
   .chat-page {
     margin: 0 -12px;
@@ -352,11 +412,34 @@
 
   .message-content {
     max-width: 90%;
+    min-width: 60px;
   }
 
   .message-bubble {
-    padding: 10px 14px;
-    border-radius: 16px;
+    padding: 8px 12px;
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+  .message-sender-name {
+    font-size: 0.65rem;
+  }
+
+  .message-time {
+    font-size: 0.65rem;
+  }
+
+  .own-message {
+    margin-left: 10px !important;
+  }
+
+  .other-message {
+    margin-right: 10px !important;
+  }
+
+  .message-avatar {
+    width: 28px !important;
+    height: 28px !important;
   }
 
   .input-field {
