@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout as AntLayout, Menu, Button, Avatar, Dropdown, Space, Badge, Drawer } from 'antd';
+import { Layout as AntLayout, Menu, Button, Avatar, Space, Drawer } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { 
   HomeOutlined, 
@@ -35,20 +35,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     setDrawerVisible(false);
   };
 
-  const handleUserMenuClick = ({ key }: { key: string }) => {
-    switch (key) {
-      case 'profile':
-        navigate('/profile');
-        break;
-      case 'expert-dashboard':
-        navigate('/expert-dashboard');
-        break;
-      case 'logout':
-        logout();
-        navigate('/');
-        break;
-    }
-  };
+  // Удалена функция handleUserMenuClick так как больше не используется
 
   const menuItems: MenuProps['items'] = [
     {
@@ -76,29 +63,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     });
   }
 
-  const userMenuItems: MenuProps['items'] = [
-    {
-      key: 'profile',
-      icon: <UserOutlined />,
-      label: 'Профиль',
-    },
-  ];
-
-  if (user?.role === 'expert') {
-    userMenuItems.push({
-      key: 'expert-dashboard',
-      icon: <DashboardOutlined />,
-      label: 'Панель эксперта',
-    });
-  }
-
-  userMenuItems.push({
-    type: 'divider',
-  }, {
-    key: 'logout',
-    icon: <LogoutOutlined />,
-    label: 'Выйти',
-  });
+  // Удалены userMenuItems так как больше не используется Dropdown
 
   const mobileMenu = (
     <Menu

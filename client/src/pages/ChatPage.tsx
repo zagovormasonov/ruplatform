@@ -73,6 +73,9 @@ const ChatPage: React.FC = () => {
         senderId: message.senderId, 
         content: message.content,
         createdAt: message.createdAt,
+        isRead: true,
+        firstName: message.firstName || '',
+        lastName: message.lastName || '',
         avatarUrl: message.avatarUrl
       }]);
       scrollToBottom();
@@ -178,6 +181,9 @@ const ChatPage: React.FC = () => {
           senderId: user.id,
           content: newMessage.trim(),
           createdAt: new Date().toISOString(),
+          isRead: true,
+          firstName: user.firstName,
+          lastName: user.lastName,
           avatarUrl: user.avatarUrl
         };
         setMessages(prev => [...prev, newMsg]);
