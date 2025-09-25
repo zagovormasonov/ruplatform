@@ -154,8 +154,11 @@
 .messages-container {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 0 20px;
   background: #f8f9fa;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .empty-messages {
@@ -178,6 +181,8 @@
   flex-direction: column;
   gap: 20px;
   max-width: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 .message {
@@ -185,16 +190,18 @@
   align-items: flex-start;
   gap: 12px;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .own-message {
   justify-content: flex-end;
-  margin-left: 60px;
+  margin-left: 0;
 }
 
 .other-message {
   justify-content: flex-start;
-  margin-right: 60px;
+  margin-right: 0;
 }
 
 .message-avatar {
@@ -209,8 +216,11 @@
 .message-content {
   display: flex;
   flex-direction: column;
-  max-width: 75%;
-  min-width: 120px;
+  max-width: 70%;
+  min-width: 100px;
+  flex: 1;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .own-message .message-content {
@@ -249,6 +259,10 @@
   border: 1px solid #e5e7eb;
   line-height: 1.4;
   margin-bottom: 2px;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 .own-message .message-bubble {
@@ -376,6 +390,7 @@
 
   .messages-container {
     padding: 0 16px;
+    overflow-x: hidden;
   }
 
   .message-input-container {
@@ -385,6 +400,7 @@
   .messages-list {
     padding: 16px 0;
     gap: 12px;
+    overflow: hidden;
   }
 }
 
@@ -441,6 +457,9 @@
     padding: 8px 12px;
     font-size: 13px;
     line-height: 1.3;
+    max-width: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 
   .message-sender-name {
@@ -452,11 +471,11 @@
   }
 
   .own-message {
-    margin-left: 10px !important;
+    margin-left: 0 !important;
   }
 
   .other-message {
-    margin-right: 10px !important;
+    margin-right: 0 !important;
   }
 
   .message-avatar {
@@ -466,6 +485,14 @@
 
   .chat-info {
     display: none;
+  }
+
+  .messages-container {
+    overflow-x: hidden;
+  }
+
+  .messages-list {
+    overflow: hidden;
   }
 
   .input-field {

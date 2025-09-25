@@ -1,43 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Row, 
-  Col, 
-  Card, 
-  Input, 
-  Select, 
-  Button, 
-  Typography, 
-  Tag, 
-  Rate, 
-  Avatar, 
-  Spin, 
-  Empty, 
+import {
+  Row,
+  Col,
+  Card,
+  Input,
+  Select,
+  Button,
+  Typography,
+  Tag,
+  Rate,
+  Avatar,
+  Spin,
+  Empty,
   Pagination,
-  Checkbox
+  Checkbox,
+  message
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import { 
   UserOutlined, 
   EnvironmentOutlined,
   EyeOutlined,
   MessageOutlined
 } from '@ant-design/icons';
-import { expertsAPI, usersAPI } from '../services/api';
+import { expertsAPI, usersAPI, chatsAPI } from '../services/api';
 import type { Expert, Topic, City } from '../types/index';
 import './ExpertsPage.css';
 
 const { Title, Text, Paragraph } = Typography;
 const { Option } = Select;
-const { Search } = Input;
 
 const ExpertsPage: React.FC = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
+const { Search } = Input;
   
   // Состояние данных
   const [experts, setExperts] = useState<Expert[]>([]);
   const [topics, setTopics] = useState<Topic[]>([]);
   const [cities, setCities] = useState<City[]>([]);
   const [loading, setLoading] = useState(false);
+  const [contactLoading, setContactLoading] = useState(false);
   const [totalExperts, setTotalExperts] = useState(0);
   
   // Состояние фильтров
@@ -149,10 +153,25 @@ const ExpertsPage: React.FC = () => {
     navigate(`/experts/${expertId}`);
   };
 
-  const handleContactExpert = (expertId: number, event: React.MouseEvent) => {
+  const handleContactExpert = async (expertId: number, event: React.MouseEvent) => {
     event.stopPropagation();
-    // TODO: Открыть чат с экспертом
-    navigate(`/chat?expertId=${expertId}`);
+
+    if (!user) {
+      message.error('Для связи с экспертом необходимо войти в систему');
+      navigate('/login');
+      return;
+    }
+
+    try {
+      setContactLoading(true);
+      const chatData = await chatsAPI.start(expertId);
+      navigate(`/chat/${chatData.chatId}`);
+    } catch (error) {
+      console.error('Spiritual Platform: Ошибка создания чата:', error);
+      message.error('Не удалось связаться с экспертом');
+    } finally {
+      setContactLoading(false);
+    }
   };
 
   return (
@@ -312,6 +331,7 @@ const ExpertsPage: React.FC = () => {
                           type="primary"
                           icon={<MessageOutlined />}
                           onClick={(e) => handleContactExpert(expert.id, e)}
+                          loading={contactLoading}
                           block
                         >
                           Связаться
