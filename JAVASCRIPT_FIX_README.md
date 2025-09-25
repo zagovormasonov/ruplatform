@@ -104,7 +104,7 @@ cd /home/node/ruplatform/client
 npm run build 2>&1 | tail -20
 
 # Логи PM2
-pm2 logs | tail -20
+pm2 logs | tail -20 
 
 # Логи nginx
 sudo tail -f /var/log/nginx/ruplatform_error.log
