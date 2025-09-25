@@ -13,8 +13,8 @@ router.get('/', authenticateToken, async (req: AuthRequest, res) => {
     const result = await pool.query(`
       SELECT c.id, c.last_message, c.last_message_at, c.created_at,
              CASE
-               WHEN c.user1_id = $1 THEN u2.first_name || ' ' || u2.last_name
-               ELSE u1.first_name || ' ' || u1.last_name
+               WHEN c.user1_id = $1 THEN COALESCE(u2.first_name, '') || ' ' || COALESCE(u2.last_name, '')
+               ELSE COALESCE(u1.first_name, '') || ' ' || COALESCE(u1.last_name, '')
              END as other_user_name,
              CASE
                WHEN c.user1_id = $1 THEN u2.avatar_url
@@ -278,19 +278,19 @@ router.get('/:chatId', authenticateToken, async (req: AuthRequest, res) => {
 
     const result = await pool.query(`
       SELECT c.id, c.created_at,
-             CASE 
+             CASE
                WHEN c.user1_id = $1 THEN u2.id
                ELSE u1.id
              END as other_user_id,
-             CASE 
-               WHEN c.user1_id = $1 THEN u2.first_name || ' ' || u2.last_name
-               ELSE u1.first_name || ' ' || u1.last_name
+             CASE
+               WHEN c.user1_id = $1 THEN COALESCE(u2.first_name, '') || ' ' || COALESCE(u2.last_name, '')
+               ELSE COALESCE(u1.first_name, '') || ' ' || COALESCE(u1.last_name, '')
              END as other_user_name,
-             CASE 
+             CASE
                WHEN c.user1_id = $1 THEN u2.avatar_url
                ELSE u1.avatar_url
              END as other_user_avatar,
-             CASE 
+             CASE
                WHEN c.user1_id = $1 THEN u2.role
                ELSE u1.role
              END as other_user_role
