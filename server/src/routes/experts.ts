@@ -203,14 +203,14 @@ router.get('/:id', async (req, res) => {
     `, [expertId]);
 
     // Преобразуем snake_case в camelCase для совместимости с фронтендом
-    const expert = expertResult.rows[0];
-    if (expert) {
-      expert.firstName = expert.first_name;
-      expert.lastName = expert.last_name;
-      expert.cityName = expert.city_name;
-      delete expert.first_name;
-      delete expert.last_name;
-      delete expert.city_name;
+    const expertData = expertResult.rows[0];
+    if (expertData) {
+      expertData.firstName = expertData.first_name;
+      expertData.lastName = expertData.last_name;
+      expertData.cityName = expertData.city_name;
+      delete expertData.first_name;
+      delete expertData.last_name;
+      delete expertData.city_name;
     }
 
     if (expertResult.rows.length === 0) {
@@ -234,9 +234,11 @@ router.get('/:id', async (req, res) => {
       LIMIT 10
     `, [expertId]);
 
-    const expert = expertResult.rows[0];
-    expert.services = servicesResult.rows;
-    expert.reviews = reviewsResult.rows;
+    const expert = expertData || expertResult.rows[0];
+    if (expert) {
+      expert.services = servicesResult.rows;
+      expert.reviews = reviewsResult.rows;
+    }
 
     res.json(expert);
   } catch (error) {
@@ -250,7 +252,7 @@ router.get('/profile/me', authenticateToken, requireRole('expert'), async (req: 
   try {
     const userId = req.user?.id;
 
-    const result = await pool.query(`
+    const profileResult = await pool.query(`
       SELECT ep.*, u.first_name, u.last_name, u.email, u.avatar_url, u.phone,
              c.name as city_name, c.region
       FROM expert_profiles ep
@@ -259,7 +261,7 @@ router.get('/profile/me', authenticateToken, requireRole('expert'), async (req: 
       WHERE ep.user_id = $1
     `, [userId]);
 
-    if (result.rows.length === 0) {
+    if (profileResult.rows.length === 0) {
       return res.status(404).json({ error: 'Профиль эксперта не найден' });
     }
 
@@ -269,12 +271,12 @@ router.get('/profile/me', authenticateToken, requireRole('expert'), async (req: 
       FROM expert_topics et
       JOIN topics t ON et.topic_id = t.id
       WHERE et.expert_id = $1
-    `, [result.rows[0].id]);
+    `, [profileResult.rows[0].id]);
 
-    const expert = result.rows[0];
-    expert.topics = topicsResult.rows;
+    const expertData = profileResult.rows[0];
+    expertData.topics = topicsResult.rows;
 
-    res.json(expert);
+    res.json(expertData);
   } catch (error) {
     console.error('Spiritual Platform: Ошибка получения профиля эксперта:', error);
     res.status(500).json({ error: 'Ошибка сервера' });
