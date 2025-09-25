@@ -44,50 +44,66 @@ router.post('/start', authenticateToken, async (req: AuthRequest, res) => {
     const userId = req.user?.id;
     const { otherUserId } = req.body;
 
+    console.log('Spiritual Platform Server: Запрос на создание чата');
+    console.log('Spiritual Platform Server: Пользователь:', userId);
+    console.log('Spiritual Platform Server: Собеседник:', otherUserId);
+
     if (!otherUserId) {
+      console.log('Spiritual Platform Server: Ошибка - ID собеседника обязателен');
       return res.status(400).json({ error: 'ID собеседника обязателен' });
     }
 
     if (userId === parseInt(otherUserId)) {
+      console.log('Spiritual Platform Server: Ошибка - нельзя создать чат с самим собой');
       return res.status(400).json({ error: 'Нельзя создать чат с самим собой' });
     }
 
     // Проверка существования собеседника
+    console.log('Spiritual Platform Server: Проверяем существование пользователя:', otherUserId);
     const userExists = await pool.query('SELECT id FROM users WHERE id = $1', [otherUserId]);
     if (userExists.rows.length === 0) {
+      console.log('Spiritual Platform Server: Ошибка - пользователь не найден:', otherUserId);
       return res.status(404).json({ error: 'Пользователь не найден' });
     }
 
     // Поиск существующего чата
+    console.log('Spiritual Platform Server: Ищем существующий чат между пользователями:', userId, 'и', otherUserId);
     let existingChat = await pool.query(`
-      SELECT * FROM chats 
+      SELECT * FROM chats
       WHERE (user1_id = $1 AND user2_id = $2) OR (user1_id = $2 AND user2_id = $1)
     `, [userId, otherUserId]);
 
     let chat;
     if (existingChat.rows.length > 0) {
       chat = existingChat.rows[0];
+      console.log('Spiritual Platform Server: Найден существующий чат:', chat.id);
     } else {
       // Создание нового чата
+      console.log('Spiritual Platform Server: Создаем новый чат между пользователями:', userId, 'и', otherUserId);
       const newChatResult = await pool.query(`
         INSERT INTO chats (user1_id, user2_id)
         VALUES ($1, $2)
         RETURNING *
       `, [userId, otherUserId]);
       chat = newChatResult.rows[0];
-      console.log(`Spiritual Platform: Новый чат создан между пользователями ${userId} и ${otherUserId}`);
+      console.log('Spiritual Platform Server: Новый чат создан:', chat.id);
     }
 
     // Получение информации о собеседнике
+    console.log('Spiritual Platform Server: Получаем информацию о собеседнике:', otherUserId);
     const otherUserResult = await pool.query(`
       SELECT id, first_name, last_name, avatar_url, role
       FROM users WHERE id = $1
     `, [otherUserId]);
 
-    res.json({
+    const response = {
       chatId: chat.id,
       otherUser: otherUserResult.rows[0]
-    });
+    };
+
+    console.log('Spiritual Platform Server: Отправляем ответ:', response);
+
+    res.json(response);
   } catch (error) {
     console.error('Spiritual Platform: Ошибка создания чата:', error);
     res.status(500).json({ error: 'Ошибка сервера' });

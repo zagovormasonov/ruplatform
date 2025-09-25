@@ -156,7 +156,11 @@ const { Search } = Input;
   const handleContactExpert = async (expertId: number, event: React.MouseEvent) => {
     event.stopPropagation();
 
+    console.log('Spiritual Platform: Нажата кнопка "связаться" с экспертом:', expertId);
+    console.log('Spiritual Platform: Текущий пользователь:', user);
+
     if (!user) {
+      console.log('Spiritual Platform: Пользователь не авторизован');
       message.error('Для связи с экспертом необходимо войти в систему');
       navigate('/login');
       return;
@@ -164,13 +168,34 @@ const { Search } = Input;
 
     try {
       setContactLoading(true);
+      console.log('Spiritual Platform: Отправляем запрос на создание чата с экспертом:', expertId);
+
       const chatData = await chatsAPI.start(expertId);
+      console.log('Spiritual Platform: Получен ответ от API:', chatData);
+
       navigate(`/chat/${chatData.chatId}`);
-    } catch (error) {
+      console.log('Spiritual Platform: Перенаправление на чат:', chatData.chatId);
+    } catch (error: any) {
       console.error('Spiritual Platform: Ошибка создания чата:', error);
-      message.error('Не удалось связаться с экспертом');
+      console.error('Spiritual Platform: Детали ошибки:', {
+        message: error.message,
+        status: error.response?.status,
+        data: error.response?.data
+      });
+
+      if (error.response?.status === 401) {
+        message.error('Сессия истекла. Пожалуйста, войдите снова');
+        navigate('/login');
+      } else if (error.response?.status === 404) {
+        message.error('Эксперт не найден');
+      } else if (error.response?.status === 500) {
+        message.error('Ошибка сервера. Попробуйте позже');
+      } else {
+        message.error('Не удалось связаться с экспертом');
+      }
     } finally {
       setContactLoading(false);
+      console.log('Spiritual Platform: Загрузка завершена');
     }
   };
 
