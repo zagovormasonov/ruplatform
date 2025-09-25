@@ -90,4 +90,5 @@ export interface Chat {
   lastMessage?: string;
   lastMessageAt?: string;
   unreadCount: number;
+  hasNewMessage?: boolean; // Индикатор новых сообщений
 }

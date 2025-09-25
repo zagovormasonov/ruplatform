@@ -84,6 +84,29 @@ io.on('connection', (socket) => {
 
       const sender = senderResult.rows[0];
 
+      // Получение информации о чате для определения получателя
+      const chatInfo = await pool.query(
+        'SELECT user1_id, user2_id FROM chats WHERE id = $1',
+        [chatId]
+      );
+
+      if (chatInfo.rows.length > 0) {
+        const chat = chatInfo.rows[0];
+        const receiverId = chat.user1_id === senderId ? chat.user2_id : chat.user1_id;
+
+        // Отправка уведомления получателю о новом сообщении
+        io.to(`user_${receiverId}`).emit('new_message_notification', {
+          chatId: chatId,
+          senderId: senderId,
+          senderName: `${sender.first_name} ${sender.last_name}`,
+          senderAvatar: sender.avatar_url,
+          message: content,
+          createdAt: message.created_at
+        });
+
+        console.log(`Spiritual Platform: Уведомление о новом сообщении отправлено пользователю ${receiverId}`);
+      }
+
       // Отправка сообщения всем участникам чата
       io.to(`chat_${chatId}`).emit('new_message', {
         id: message.id,

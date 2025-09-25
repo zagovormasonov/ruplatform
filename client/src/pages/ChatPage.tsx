@@ -12,7 +12,8 @@ import {
   Empty,
   Spin,
   Badge,
-  Divider
+  Divider,
+  message
 } from 'antd';
 import {
   SendOutlined,
@@ -70,7 +71,7 @@ const ChatPage: React.FC = () => {
       setMessages(prev => [...prev, {
         id: message.id,
         chatId: message.chatId,
-        senderId: message.senderId, 
+        senderId: message.senderId,
         content: message.content,
         createdAt: message.createdAt,
         isRead: true,
@@ -81,10 +82,34 @@ const ChatPage: React.FC = () => {
       scrollToBottom();
     });
 
+    // Обработка уведомлений о новых сообщениях
+    newSocket.on('new_message_notification', (notification: any) => {
+      console.log('Spiritual Platform: Получено уведомление о новом сообщении:', notification);
+
+      // Обновляем список чатов для показа индикатора новых сообщений
+      loadChats();
+
+      // Показываем уведомление пользователю
+      if (Notification.permission === 'granted') {
+        new Notification(`Новое сообщение от ${notification.senderName}`, {
+          body: notification.message,
+          icon: notification.senderAvatar || '/favicon.ico'
+        });
+      }
+
+      // Показываем сообщение в UI
+      message.info(`Новое сообщение от ${notification.senderName}`);
+    });
+
     // Обработка ошибок подключения
     newSocket.on('connect', () => {
       console.log('Spiritual Platform: Socket.IO подключен');
     });
+
+    // Запрос разрешения на уведомления
+    if (Notification.permission === 'default') {
+      Notification.requestPermission();
+    }
 
     newSocket.on('disconnect', () => {
       console.log('Spiritual Platform: Socket.IO отключен');
@@ -303,7 +328,16 @@ const ChatPage: React.FC = () => {
     }
   };
 
-  const handleChatSelect = (selectedChatId: number) => {
+  const handleChatSelect = async (selectedChatId: number) => {
+    // Сбрасываем индикатор новых сообщений для выбранного чата
+    setChats(prevChats =>
+      prevChats.map(chat =>
+        chat.id === selectedChatId
+          ? { ...chat, hasNewMessage: false }
+          : chat
+      )
+    );
+
     navigate(`/chat/${selectedChatId}`);
   };
 
@@ -349,13 +383,30 @@ const ChatPage: React.FC = () => {
                   >
                     <List.Item.Meta
                       avatar={
-                        <Badge count={chat.unreadCount} size="small">
-                          <Avatar
-                            src={chat.otherUserAvatar}
-                            icon={<UserOutlined />}
-                            size={40}
-                          />
-                        </Badge>
+                        <div style={{ position: 'relative' }}>
+                          <Badge count={chat.unreadCount} size="small">
+                            <Avatar
+                              src={chat.otherUserAvatar}
+                              icon={<UserOutlined />}
+                              size={40}
+                            />
+                          </Badge>
+                          {chat.hasNewMessage && (
+                            <div
+                              style={{
+                                position: 'absolute',
+                                top: -2,
+                                right: -2,
+                                width: 12,
+                                height: 12,
+                                backgroundColor: '#ff4d4f',
+                                borderRadius: '50%',
+                                border: '2px solid white',
+                                zIndex: 10
+                              }}
+                            />
+                          )}
+                        </div>
                       }
                       title={
                         <div className="chat-title">

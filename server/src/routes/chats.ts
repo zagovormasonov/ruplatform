@@ -11,19 +11,23 @@ router.get('/', authenticateToken, async (req: AuthRequest, res) => {
 
     const result = await pool.query(`
       SELECT c.id, c.last_message, c.last_message_at, c.created_at,
-             CASE 
+             CASE
                WHEN c.user1_id = $1 THEN u2.first_name || ' ' || u2.last_name
                ELSE u1.first_name || ' ' || u1.last_name
              END as other_user_name,
-             CASE 
+             CASE
                WHEN c.user1_id = $1 THEN u2.avatar_url
                ELSE u1.avatar_url
              END as other_user_avatar,
-             CASE 
+             CASE
                WHEN c.user1_id = $1 THEN c.user2_id
                ELSE c.user1_id
              END as other_user_id,
-             (SELECT COUNT(*) FROM messages m WHERE m.chat_id = c.id AND m.sender_id != $1 AND m.is_read = false) as unread_count
+             (SELECT COUNT(*) FROM messages m WHERE m.chat_id = c.id AND m.sender_id != $1 AND m.is_read = false) as unread_count,
+             CASE
+               WHEN (SELECT COUNT(*) FROM messages m WHERE m.chat_id = c.id AND m.sender_id != $1 AND m.is_read = false) > 0 THEN true
+               ELSE false
+             END as has_new_message
       FROM chats c
       JOIN users u1 ON c.user1_id = u1.id
       JOIN users u2 ON c.user2_id = u2.id
