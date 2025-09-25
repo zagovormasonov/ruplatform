@@ -119,32 +119,29 @@ const HomePage: React.FC = () => {
           </div>
         </Card>
 
-        {/* Popular Categories - Как на скриншоте */}
-        <Card className="bento-card categories-card-main">
-          <div className="section-header">
-            <Title level={4}>Популярные категории</Title>
-          </div>
-          <div className="categories-list-main">
-            <span className="category-tag-main">Медитация</span>
-            <span className="category-tag-main">Астрология</span>
-            <span className="category-tag-main">Таро</span>
-            <span className="category-tag-main">Йога</span>
-            <span className="category-tag-main">Рейки</span>
-            <span className="category-tag-main">Нумерология</span>
-            <span className="category-tag-main">Холотропное дыхание</span>
-            <span className="category-tag-main">Регрессия</span>
-            <span className="category-tag-main">Парапсихология</span>
-            <span className="category-tag-main">Расстановки</span>
-          </div>
-        </Card>
+              {/* Nature Image Card */}
+              <Card className="bento-card nature-card">
+                <div className="nature-image-container">
+                  <img
+                    src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&crop=center"
+                    alt="Природа - медитация"
+                    className="nature-image"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                  <div className="nature-overlay">
+                    <Text className="nature-quote">«Природа - лучший учитель мудрости»</Text>
+                  </div>
+                </div>
+              </Card>
 
-        {/* Features Cards - Разные размеры */}
+        {/* Features Cards - Упрощенные */}
         <Card className="bento-card feature-card">
           <div className="feature-icon">
             <TeamOutlined />
           </div>
           <Title level={4}>Проверенные эксперты</Title>
-          <Paragraph>Все мастера проходят тщательную проверку</Paragraph>
         </Card>
 
         <Card className="bento-card feature-card">
@@ -152,7 +149,6 @@ const HomePage: React.FC = () => {
             <FileTextOutlined />
           </div>
           <Title level={4}>Качественные материалы</Title>
-          <Paragraph>Изучайте практики через экспертные статьи</Paragraph>
         </Card>
 
         <Card className="bento-card feature-card">
@@ -160,26 +156,10 @@ const HomePage: React.FC = () => {
             <SearchOutlined />
           </div>
           <Title level={4}>Удобный поиск</Title>
-          <Paragraph>Фильтры по тематикам и городам</Paragraph>
         </Card>
 
-        {/* Популярные категории */}
-        <Card className="bento-card categories-card">
-          <div className="section-header">
-            <Title level={4}>Популярные категории</Title>
-          </div>
-          <div className="categories-list">
-            <span className="category-tag">Медитация</span>
-            <span className="category-tag">Астрология</span>
-            <span className="category-tag">Таро</span>
-            <span className="category-tag">Йога</span>
-            <span className="category-tag">Рейки</span>
-            <span className="category-tag">Нумерология</span>
-          </div>
-        </Card>
-
-        {/* Избранные статьи */}
-        <Card className="bento-card articles-card">
+        {/* Избранные статьи - растянуты на всю ширину */}
+        <Card className="bento-card articles-card-full">
           <div className="section-header">
             <Title level={4}>Избранные статьи</Title>
             <Button
@@ -187,7 +167,7 @@ const HomePage: React.FC = () => {
               onClick={() => navigate('/articles')}
               className="view-all-button"
             >
-              Все статьи
+              Все статьи →
             </Button>
           </div>
 
@@ -198,45 +178,48 @@ const HomePage: React.FC = () => {
           ) : articles.length === 0 ? (
             <Empty description="Пока нет статей" />
           ) : (
-            <div className="featured-articles">
-              {articles.slice(0, 2).map((article) => (
+            <div className="featured-articles-full">
+              {articles.slice(0, 3).map((article, index) => (
                 <div
                   key={article.id}
-                  className="featured-article"
+                  className={`featured-article-full ${index === 0 ? 'featured-large' : 'featured-medium'}`}
                   onClick={() => navigate(`/articles/${article.id}`)}
                 >
-                  <div className="article-cover">
+                  <div className="article-cover-full">
                     {article.coverImage ? (
                       <img
                         src={article.coverImage}
                         alt={article.title}
+                        className="article-image-full"
                         onError={(e) => {
                           e.currentTarget.style.display = 'none';
                         }}
                       />
                     ) : (
-                      <div className="article-cover-placeholder">
+                      <div className="article-cover-placeholder-full">
                         <FileTextOutlined />
                       </div>
                     )}
                   </div>
-                  <div className="article-info">
-                    <Title level={5} className="article-title">
-                      {truncateText(article.title, 35)}
+                  <div className="article-info-full">
+                    <Title level={index === 0 ? 3 : 4} className="article-title-full">
+                      {truncateText(article.title, index === 0 ? 50 : 35)}
                     </Title>
-                    <Text className="article-excerpt">
-                      {truncateText(article.excerpt || '', 60)}
-                    </Text>
-                    <div className="article-meta">
-                      <Text className="article-author">
+                    {index === 0 && (
+                      <Text className="article-excerpt-full">
+                        {truncateText(article.excerpt || '', 120)}
+                      </Text>
+                    )}
+                    <div className="article-meta-full">
+                      <Text className="article-author-full">
                         {article.firstName} {article.lastName}
                       </Text>
-                      <div className="article-stats">
-                        <span className="stat-item">
+                      <div className="article-stats-full">
+                        <span className="stat-item-full">
                           <EyeOutlined />
                           {article.viewsCount}
                         </span>
-                        <span className="stat-item">
+                        <span className="stat-item-full">
                           <HeartOutlined />
                           {article.likesCount}
                         </span>

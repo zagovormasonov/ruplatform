@@ -5,11 +5,11 @@
 /* Dribbble Style Bento Grid */
 .bento-grid {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(5, minmax(200px, auto));
-  gap: 20px;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, minmax(250px, auto));
+  gap: 24px;
   padding: 40px;
-  max-width: 1600px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -30,8 +30,8 @@
 
 /* Hero Card - Слева */
 .hero-card {
-  grid-column: span 5;
-  grid-row: span 3;
+  grid-column: span 4;
+  grid-row: span 2;
   background: white;
   color: #1f2937;
   padding: 48px;
@@ -43,6 +43,53 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+/* Nature Image Card */
+.nature-card {
+  grid-column: span 2;
+  grid-row: span 2;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.nature-image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+}
+
+.nature-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  transition: transform 0.3s ease;
+}
+
+.nature-image:hover {
+  transform: scale(1.05);
+}
+
+.nature-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  padding: 32px 20px 20px;
+  border-radius: 0 0 16px 16px;
+}
+
+.nature-quote {
+  color: white;
+  font-size: 16px;
+  font-style: italic;
+  text-align: center;
+  font-weight: 500;
+  line-height: 1.4;
 }
 
 .hero-title {
@@ -249,8 +296,8 @@
 }
 
 /* Featured Articles Card */
-.articles-card {
-  grid-column: span 5;
+.articles-card-full {
+  grid-column: span 6;
   grid-row: span 2;
   padding: 32px;
 }
@@ -276,10 +323,115 @@
   color: #6366f1;
 }
 
-.featured-articles {
+/* Featured Articles - Full Width */
+.featured-articles-full {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 24px;
+  height: 100%;
+}
+
+.featured-article-full {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid #f0f0f0;
+}
+
+.featured-article-full:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.featured-large {
+  /* Первый большой элемент */
+}
+
+.featured-medium {
+  /* Средние элементы */
+}
+
+.article-cover-full {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+}
+
+.article-image-full {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.featured-article-full:hover .article-image-full {
+  transform: scale(1.05);
+}
+
+.article-cover-placeholder-full {
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  font-size: 2rem;
+}
+
+.article-info-full {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.article-title-full {
+  color: #1f2937 !important;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.article-excerpt-full {
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.article-meta-full {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.article-author-full {
+  color: #6366f1;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.article-stats-full {
+  display: flex;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.stat-item-full {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #9ca3af;
+  font-size: 12px;
 }
 
 .featured-article {
@@ -377,8 +529,8 @@
 
 /* CTA Card */
 .cta-card {
-  grid-column: span 3;
-  grid-row: span 2;
+  grid-column: span 6;
+  grid-row: span 1;
   background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
   padding: 40px;
   display: flex;
@@ -553,13 +705,12 @@
     grid-row: span 2;
   }
 
-  .categories-card-main {
+  .nature-card {
     grid-column: span 4;
     grid-row: span 1;
   }
 
-  .categories-card,
-  .articles-card {
+  .articles-card-full {
     grid-column: span 4;
   }
 
@@ -591,9 +742,8 @@
     font-size: 1rem;
   }
 
-  .categories-card-main,
-  .categories-card,
-  .articles-card,
+  .nature-card,
+  .articles-card-full,
   .cta-card {
     grid-column: span 2;
     grid-row: span 1;
@@ -604,9 +754,27 @@
     gap: 16px;
   }
 
+  .featured-articles-full {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .featured-article-full {
+    flex-direction: column;
+    height: auto;
+  }
+
   .article-cover {
     width: 100%;
     height: 160px;
+  }
+
+  .article-image-full {
+    height: 180px;
+  }
+
+  .nature-image-container {
+    min-height: 200px;
   }
 }
 
