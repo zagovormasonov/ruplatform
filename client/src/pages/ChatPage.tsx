@@ -442,7 +442,10 @@ const ChatPage: React.FC = () => {
                           <div className="chat-name-container">
                             <div className="chat-name-with-role">
                               <Text strong className="chat-name">
-                                {chat.otherUserName || `👤 Пользователь ${chat.otherUserId}`}
+                                {chat.otherUserName && chat.otherUserName.trim() !== ''
+                                  ? chat.otherUserName
+                                  : `👤 Пользователь ${chat.otherUserId}`
+                                }
                               </Text>
                               {chat.otherUserRole && (
                                 <Text type="secondary" className="chat-role-badge">
@@ -486,7 +489,10 @@ const ChatPage: React.FC = () => {
               title={
                 <div className="chat-card-header">
                   <Text strong className="chat-card-title">
-                    {currentChat.otherUserName || `👤 Пользователь ${currentChat.otherUserId}`}
+                    {currentChat.otherUserName && currentChat.otherUserName.trim() !== ''
+                      ? currentChat.otherUserName
+                      : `👤 Пользователь ${currentChat.otherUserId}`
+                    }
                   </Text>
                   <div className="chat-card-subtitle">
                     <Text type="secondary" className="chat-subtitle">
@@ -514,7 +520,10 @@ const ChatPage: React.FC = () => {
                   <div className="user-details">
                     <div className="user-name-row">
                       <Text strong className="user-name">
-                        {currentChat.otherUserName || `👤 Пользователь ${currentChat.otherUserId}`}
+                        {currentChat.otherUserName && currentChat.otherUserName.trim() !== ''
+                          ? currentChat.otherUserName
+                          : `👤 Пользователь ${currentChat.otherUserId}`
+                        }
                       </Text>
                       {currentChat.hasNewMessage && (
                         <div className="new-message-indicator">
