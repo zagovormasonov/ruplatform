@@ -51,6 +51,7 @@ export interface Review {
 
 export interface Expert {
   id: number;
+  userId: number;
   firstName: string;
   lastName: string;
   avatarUrl?: string;

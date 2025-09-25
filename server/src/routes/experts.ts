@@ -15,15 +15,16 @@ router.get('/search', async (req, res) => {
     });
 
     let query = `
-      SELECT DISTINCT ep.id, 
-             u.first_name as "firstName", 
-             u.last_name as "lastName", 
-             u.avatar_url as "avatarUrl", 
-             ep.bio, 
-             ep.rating, 
+      SELECT DISTINCT ep.id,
+             u.id as "userId",
+             u.first_name as "firstName",
+             u.last_name as "lastName",
+             u.avatar_url as "avatarUrl",
+             ep.bio,
+             ep.rating,
              ep.reviews_count as "reviewsCount",
              ep.created_at,
-             c.name as "cityName", 
+             c.name as "cityName",
              c.region,
              array_agg(DISTINCT t.name) as topics,
              array_agg(DISTINCT s.title) as services
@@ -69,7 +70,7 @@ router.get('/search', async (req, res) => {
     }
 
     query += `
-      GROUP BY ep.id, u.first_name, u.last_name, u.avatar_url, ep.bio, ep.rating, ep.reviews_count, ep.created_at, c.name, c.region
+      GROUP BY ep.id, u.id, u.first_name, u.last_name, u.avatar_url, ep.bio, ep.rating, ep.reviews_count, ep.created_at, c.name, c.region
     `;
 
     // Добавляем сортировку
