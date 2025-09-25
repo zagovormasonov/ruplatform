@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Button, Typography, Spin, Empty, Input, Row, Col, Tabs, Avatar, Rate } from 'antd';
+import { Card, Button, Typography, Spin, Input, Row, Col, Tabs, Avatar, Rate } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import {
   SearchOutlined,
   UserOutlined,
   EnvironmentOutlined,
-  StarOutlined,
   FileTextOutlined,
   EyeOutlined,
   HeartOutlined,
