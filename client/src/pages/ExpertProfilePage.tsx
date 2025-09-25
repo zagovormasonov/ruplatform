@@ -76,10 +76,17 @@ const ExpertProfilePage: React.FC = () => {
 
     try {
       setContactLoading(true);
-      const chatData = await chatsAPI.start(expert.id);
+      console.log('Spiritual Platform: Создание чата с экспертом:', expert.userId);
+      const chatData = await chatsAPI.start(expert.userId);
+      console.log('Spiritual Platform: Чат создан:', chatData);
       navigate(`/chat/${chatData.chatId}`);
     } catch (error) {
       console.error('Spiritual Platform: Ошибка создания чата:', error);
+      console.error('Spiritual Platform: Детали ошибки:', {
+        message: (error as Error).message,
+        status: (error as any).response?.status,
+        data: (error as any).response?.data
+      });
       message.error('Не удалось связаться с экспертом');
     } finally {
       setContactLoading(false);
