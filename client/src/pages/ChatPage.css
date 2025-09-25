@@ -282,6 +282,80 @@
     font-weight: 500;
   }
 
+  /* Стили для заголовка карточки чата */
+  .chat-card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .chat-card-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .chat-card-subtitle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .chat-subtitle {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 0;
+  }
+
+  .chat-separator {
+    font-size: 12px;
+    color: #d1d5db;
+  }
+
+  .chat-online {
+    font-size: 14px;
+    color: #10b981;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  /* Стили для улучшенного отображения в сайдбаре */
+  .chat-name-with-role {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .chat-role-badge {
+    font-size: 11px;
+    color: #6b7280;
+    background: #f3f4f6;
+    padding: 2px 6px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+  }
+
+  .chat-meta-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+  }
+
+  .new-message-badge {
+    font-size: 11px;
+    color: #ff4d4f;
+    background: #fef2f2;
+    padding: 2px 6px;
+    border-radius: 10px;
+    border: 1px solid #fecaca;
+    font-weight: 500;
+  }
+
 .messages-list {
   padding: 20px 0;
   display: flex;

@@ -175,6 +175,11 @@ const ChatPage: React.FC = () => {
       // Получение информации о чате
       const chatInfo = await chatsAPI.getChatInfo(selectedChatId);
       console.log('Spiritual Platform: Chat info loaded:', chatInfo);
+      console.log('Spiritual Platform: Собеседник:', {
+        name: chatInfo.otherUserName,
+        role: chatInfo.otherUserRole,
+        avatar: chatInfo.otherUserAvatar
+      });
       setCurrentChat(chatInfo);
 
       // Получение сообщений
@@ -430,20 +435,29 @@ const ChatPage: React.FC = () => {
                       title={
                         <div className="chat-title">
                           <div className="chat-name-container">
-                            <Text strong className="chat-name">
-                              {chat.otherUserName}
-                            </Text>
-                            {chat.otherUserRole && (
-                              <Text type="secondary" className="chat-role">
-                                {chat.otherUserRole === 'expert' ? 'Эксперт' : 'Пользователь'}
+                            <div className="chat-name-with-role">
+                              <Text strong className="chat-name">
+                                {chat.otherUserName}
                               </Text>
-                            )}
+                              {chat.otherUserRole && (
+                                <Text type="secondary" className="chat-role-badge">
+                                  {chat.otherUserRole === 'expert' ? '🧘‍♀️ Эксперт' : '👤 Пользователь'}
+                                </Text>
+                              )}
+                            </div>
+                            <div className="chat-meta-info">
+                              {chat.lastMessageAt && (
+                                <Text className="chat-time">
+                                  {formatMessageTime(chat.lastMessageAt)}
+                                </Text>
+                              )}
+                              {chat.hasNewMessage && (
+                                <Text type="danger" className="new-message-badge">
+                                  Новое
+                                </Text>
+                              )}
+                            </div>
                           </div>
-                          {chat.lastMessageAt && (
-                            <Text className="chat-time">
-                              {formatMessageTime(chat.lastMessageAt)}
-                            </Text>
-                          )}
                         </div>
                       }
                       description={
@@ -462,7 +476,25 @@ const ChatPage: React.FC = () => {
         {/* Область сообщений */}
         <Col xs={24} md={16} lg={18} className="messages-area">
           {chatId && currentChat ? (
-            <Card className="messages-card">
+            <Card
+              className="messages-card"
+              title={
+                <div className="chat-card-header">
+                  <Text strong className="chat-card-title">
+                    {currentChat.otherUserName}
+                  </Text>
+                  <div className="chat-card-subtitle">
+                    <Text type="secondary" className="chat-subtitle">
+                      {currentChat.otherUserRole === 'expert' ? '🧘‍♀️ Эксперт' : '👤 Пользователь'}
+                    </Text>
+                    <Text type="secondary" className="chat-separator">•</Text>
+                    <Text type="secondary" className="chat-online">
+                      🟢 Онлайн
+                    </Text>
+                  </div>
+                </div>
+              }
+            >
               {/* Заголовок чата */}
               <div className="chat-header">
                 <div className="chat-user-info">
