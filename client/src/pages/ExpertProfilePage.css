@@ -31,8 +31,13 @@
 }
 
 .expert-name {
-  margin-bottom: 16px !important;
+  margin-bottom: 8px !important;
   color: #1f2937;
+  font-weight: 700;
+}
+
+.expert-subtitle {
+  margin-bottom: 16px;
 }
 
 .expert-rating {
@@ -57,7 +62,30 @@
 
 .expert-actions {
   display: flex;
+  flex-direction: column;
   gap: 12px;
+  align-items: flex-start;
+}
+
+.contact-button {
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.contact-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+.contact-button-sidebar {
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+}
+
+.contact-button-sidebar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
 }
 
 .expert-bio {
@@ -72,18 +100,35 @@
 .expert-topics .ant-typography h4 {
   margin-bottom: 16px;
   color: #1f2937;
+  font-weight: 600;
 }
 
 .topics-list {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  margin-top: 8px;
 }
 
 .topic-tag {
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 13px;
-  padding: 4px 12px;
+  padding: 6px 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: 1px solid #e0e7ff;
+  background: linear-gradient(135deg, #f0f4ff 0%, #e8f2ff 100%);
+  color: #4f46e5;
+}
+
+.topic-tag:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.15);
+}
+
+.no-topics-text {
+  font-size: 14px;
+  margin-top: 8px;
 }
 
 /* Услуги */

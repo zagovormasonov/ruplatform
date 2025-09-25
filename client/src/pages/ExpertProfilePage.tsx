@@ -132,9 +132,14 @@ const ExpertProfilePage: React.FC = () => {
                 className="expert-avatar"
               />
               <div className="expert-info">
-                <Title level={2} className="expert-name">
+                <Title level={2} className="expert-name" style={{ marginBottom: '8px' }}>
                   {expert.firstName} {expert.lastName}
                 </Title>
+                <div className="expert-subtitle">
+                  <Text type="secondary" style={{ fontSize: '16px', fontWeight: '500' }}>
+                    🧘‍♀️ Профессиональный эксперт в духовных практиках
+                  </Text>
+                </div>
                 
                 <div className="expert-rating">
                   <Rate disabled value={Number(expert.rating) || 0} />
@@ -157,9 +162,20 @@ const ExpertProfilePage: React.FC = () => {
                     icon={<MessageOutlined />}
                     loading={contactLoading}
                     onClick={handleContact}
+                    className="contact-button"
+                    style={{
+                      fontSize: '16px',
+                      padding: '12px 24px',
+                      height: 'auto',
+                      borderRadius: '8px',
+                      fontWeight: '600'
+                    }}
                   >
                     Связаться с экспертом
                   </Button>
+                  <Text type="secondary" style={{ display: 'block', marginTop: '8px', fontSize: '12px' }}>
+                    Начните личную консультацию
+                  </Text>
                 </div>
               </div>
             </div>
@@ -180,12 +196,35 @@ const ExpertProfilePage: React.FC = () => {
                 <div className="expert-topics">
                   <Title level={4}>Специализации</Title>
                   <div className="topics-list">
-                    {expert.topics.map(topic => (
-                      <Tag key={topic} color="blue" className="topic-tag">
+                    {expert.topics.map((topic, index) => (
+                      <Tag
+                        key={`${topic}-${index}`}
+                        color="blue"
+                        className="topic-tag"
+                        style={{
+                          fontSize: '13px',
+                          padding: '6px 12px',
+                          borderRadius: '8px',
+                          marginBottom: '4px'
+                        }}
+                      >
                         {topic}
                       </Tag>
                     ))}
                   </div>
+                </div>
+              </>
+            )}
+
+            {/* Если специализаций нет, показываем placeholder */}
+            {(!expert.topics || expert.topics.length === 0) && (
+              <>
+                <Divider />
+                <div className="expert-topics">
+                  <Title level={4}>Специализации</Title>
+                  <Text type="secondary" className="no-topics-text">
+                    Специализации не указаны
+                  </Text>
                 </div>
               </>
             )}
@@ -329,9 +368,21 @@ const ExpertProfilePage: React.FC = () => {
                 icon={<MessageOutlined />}
                 loading={contactLoading}
                 onClick={handleContact}
+                className="contact-button-sidebar"
+                style={{
+                  fontSize: '16px',
+                  padding: '12px 24px',
+                  height: 'auto',
+                  borderRadius: '8px',
+                  fontWeight: '600',
+                  background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)'
+                }}
               >
                 Написать эксперту
               </Button>
+              <Text type="secondary" style={{ display: 'block', marginTop: '12px', fontSize: '12px', textAlign: 'center' }}>
+                💬 Создаст личный чат для общения
+              </Text>
             </div>
           </Card>
         </Col>
