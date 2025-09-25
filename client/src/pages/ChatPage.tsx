@@ -57,7 +57,7 @@ const ChatPage: React.FC = () => {
     }
 
     // Инициализация Socket.IO
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+    const apiUrl = import.meta.env.VITE_API_URL || 'https://soulsynergy.ru';
     const socketUrl = apiUrl.replace('/api', '');
     console.log('Spiritual Platform: Подключение к Socket.IO:', socketUrl);
     const newSocket = io(socketUrl);
@@ -77,7 +77,7 @@ const ChatPage: React.FC = () => {
         isRead: true,
         firstName: message.firstName || '',
         lastName: message.lastName || '',
-        avatarUrl: message.avatarUrl
+        avatarUrl: message.avatarUrl || ''
       }]);
       scrollToBottom();
     });
@@ -89,16 +89,21 @@ const ChatPage: React.FC = () => {
       // Обновляем список чатов для показа индикатора новых сообщений
       loadChats();
 
+      // Используем имя отправителя или fallback
+      const senderDisplayName = notification.senderName || notification.senderFirstName && notification.senderLastName
+        ? `${notification.senderFirstName} ${notification.senderLastName}`
+        : `Пользователь ${notification.senderId}`;
+
       // Показываем уведомление пользователю
       if (Notification.permission === 'granted') {
-        new Notification(`Новое сообщение от ${notification.senderName}`, {
+        new Notification(`Новое сообщение от ${senderDisplayName}`, {
           body: notification.message,
           icon: notification.senderAvatar || '/favicon.ico'
         });
       }
 
       // Показываем сообщение в UI
-      message.info(`Новое сообщение от ${notification.senderName}`);
+      message.info(`Новое сообщение от ${senderDisplayName}`);
     });
 
     // Обработка ошибок подключения
@@ -437,7 +442,7 @@ const ChatPage: React.FC = () => {
                           <div className="chat-name-container">
                             <div className="chat-name-with-role">
                               <Text strong className="chat-name">
-                                {chat.otherUserName}
+                                {chat.otherUserName || `👤 Пользователь ${chat.otherUserId}`}
                               </Text>
                               {chat.otherUserRole && (
                                 <Text type="secondary" className="chat-role-badge">
@@ -481,7 +486,7 @@ const ChatPage: React.FC = () => {
               title={
                 <div className="chat-card-header">
                   <Text strong className="chat-card-title">
-                    {currentChat.otherUserName}
+                    {currentChat.otherUserName || `👤 Пользователь ${currentChat.otherUserId}`}
                   </Text>
                   <div className="chat-card-subtitle">
                     <Text type="secondary" className="chat-subtitle">
@@ -509,7 +514,7 @@ const ChatPage: React.FC = () => {
                   <div className="user-details">
                     <div className="user-name-row">
                       <Text strong className="user-name">
-                        {currentChat.otherUserName}
+                        {currentChat.otherUserName || `👤 Пользователь ${currentChat.otherUserId}`}
                       </Text>
                       {currentChat.hasNewMessage && (
                         <div className="new-message-indicator">
@@ -586,7 +591,10 @@ const ChatPage: React.FC = () => {
                           <div className="message-content">
                             {!isOwnMessage && (
                               <Text className="message-sender-name">
-                                {message.firstName} {message.lastName}
+                                {message.firstName && message.lastName
+                                  ? `${message.firstName} ${message.lastName}`
+                                  : `👤 Пользователь ${message.senderId}`
+                                }
                               </Text>
                             )}
                             <div className="message-bubble">
