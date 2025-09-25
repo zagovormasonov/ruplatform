@@ -191,6 +191,97 @@
     }
   }
 
+  .chat-title {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .chat-name-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .chat-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+    line-height: 1.2;
+  }
+
+  .chat-role {
+    font-size: 12px;
+    color: #6b7280;
+    line-height: 1;
+  }
+
+  .chat-time {
+    font-size: 12px;
+    color: #9ca3af;
+    margin-top: 2px;
+  }
+
+  .chat-avatar {
+    border: 2px solid #e5e7eb;
+  }
+
+  .user-name-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .user-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+    line-height: 1.2;
+  }
+
+  .new-message-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #ff4d4f;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+  }
+
+  .new-message-text {
+    font-size: 12px;
+    font-weight: 500;
+    color: #ff4d4f;
+  }
+
+  .user-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .user-role {
+    font-size: 14px;
+    color: #6b7280;
+  }
+
+  .separator {
+    font-size: 12px;
+    color: #d1d5db;
+  }
+
+  .online-status {
+    font-size: 14px;
+    color: #10b981;
+    font-weight: 500;
+  }
+
 .messages-list {
   padding: 20px 0;
   display: flex;

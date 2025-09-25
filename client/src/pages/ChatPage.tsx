@@ -147,6 +147,13 @@ const ChatPage: React.FC = () => {
       // Логируем индикаторы новых сообщений
       const chatsWithNewMessages = chatsData.filter(chat => chat.hasNewMessage);
       console.log('Spiritual Platform: Чаты с новыми сообщениями:', chatsWithNewMessages);
+      console.log('Spiritual Platform: Все чаты с деталями:', chatsData.map(chat => ({
+        id: chat.id,
+        otherUserName: chat.otherUserName,
+        otherUserRole: chat.otherUserRole,
+        hasNewMessage: chat.hasNewMessage,
+        unreadCount: chat.unreadCount
+      })));
 
       setChats(chatsData);
 
@@ -422,9 +429,16 @@ const ChatPage: React.FC = () => {
                       }
                       title={
                         <div className="chat-title">
-                          <Text strong className="chat-name">
-                            {chat.otherUserName}
-                          </Text>
+                          <div className="chat-name-container">
+                            <Text strong className="chat-name">
+                              {chat.otherUserName}
+                            </Text>
+                            {chat.otherUserRole && (
+                              <Text type="secondary" className="chat-role">
+                                {chat.otherUserRole === 'expert' ? 'Эксперт' : 'Пользователь'}
+                              </Text>
+                            )}
+                          </div>
                           {chat.lastMessageAt && (
                             <Text className="chat-time">
                               {formatMessageTime(chat.lastMessageAt)}
@@ -452,16 +466,35 @@ const ChatPage: React.FC = () => {
               {/* Заголовок чата */}
               <div className="chat-header">
                 <div className="chat-user-info">
-                  <Avatar
-                    src={currentChat.otherUserAvatar}
-                    icon={<UserOutlined />}
-                    size={40}
-                  />
+                  <Badge count={currentChat.unreadCount || 0} size="small">
+                    <Avatar
+                      src={currentChat.otherUserAvatar}
+                      icon={<UserOutlined />}
+                      size={48}
+                      className="chat-avatar"
+                    />
+                  </Badge>
                   <div className="user-details">
-                    <Text strong>{currentChat.otherUserName}</Text>
-                    <Text type="secondary" className="user-role">
-                      {currentChat.otherUserRole === 'expert' ? 'Эксперт' : 'Пользователь'}
-                    </Text>
+                    <div className="user-name-row">
+                      <Text strong className="user-name">
+                        {currentChat.otherUserName}
+                      </Text>
+                      {currentChat.hasNewMessage && (
+                        <div className="new-message-indicator">
+                          <span className="pulse-dot"></span>
+                          <Text type="danger" className="new-message-text">Новое</Text>
+                        </div>
+                      )}
+                    </div>
+                    <div className="user-meta">
+                      <Text type="secondary" className="user-role">
+                        {currentChat.otherUserRole === 'expert' ? '🧘‍♀️ Эксперт' : '👤 Пользователь'}
+                      </Text>
+                      <Text type="secondary" className="separator">•</Text>
+                      <Text type="secondary" className="online-status">
+                        🟢 Онлайн
+                      </Text>
+                    </div>
                   </div>
                 </div>
                 <div className="chat-info">

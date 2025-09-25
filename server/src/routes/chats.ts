@@ -24,6 +24,10 @@ router.get('/', authenticateToken, async (req: AuthRequest, res) => {
                WHEN c.user1_id = $1 THEN c.user2_id
                ELSE c.user1_id
              END as other_user_id,
+             CASE
+               WHEN c.user1_id = $1 THEN u2.role
+               ELSE u1.role
+             END as other_user_role,
              (SELECT COUNT(*) FROM messages m WHERE m.chat_id = c.id AND m.sender_id != $1 AND m.is_read = false) as unread_count,
              CASE
                WHEN (SELECT COUNT(*) FROM messages m WHERE m.chat_id = c.id AND m.sender_id != $1 AND m.is_read = false) > 0 THEN true
@@ -40,6 +44,7 @@ router.get('/', authenticateToken, async (req: AuthRequest, res) => {
     console.log('Spiritual Platform Server: Данные чатов:', result.rows.map(row => ({
       id: row.id,
       otherUserName: row.other_user_name,
+      otherUserRole: row.other_user_role,
       hasNewMessage: row.has_new_message,
       unreadCount: row.unread_count
     })));
