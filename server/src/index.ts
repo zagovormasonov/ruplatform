@@ -48,9 +48,16 @@ io.on('connection', (socket) => {
   console.log('Spiritual Platform: Пользователь подключился:', socket.id);
 
   socket.on('join_user', (userId) => {
+    console.log('🔔 Server: Пользователь присоединяется к каналам');
+    console.log('🔔 Server: User ID:', userId);
+    console.log('🔔 Server: Socket ID:', socket.id);
+
     activeUsers.set(userId, socket.id);
     socket.join(`user_${userId}`);
-    console.log(`Spiritual Platform: Пользователь ${userId} присоединился`);
+
+    console.log('🔔 Server: Пользователь присоединен к каналам:');
+    console.log('🔔 Server: - user_' + userId);
+    console.log('🔔 Server: Активные пользователи:', Array.from(activeUsers.entries()));
   });
 
   socket.on('join_chat', (chatId) => {
@@ -85,6 +92,7 @@ io.on('connection', (socket) => {
       const sender = senderResult.rows[0];
 
       // Получение информации о чате для определения получателя
+      console.log('🔔 Server: Получаем информацию о чате для уведомления');
       const chatInfo = await pool.query(
         'SELECT user1_id, user2_id FROM chats WHERE id = $1',
         [chatId]
@@ -94,17 +102,32 @@ io.on('connection', (socket) => {
         const chat = chatInfo.rows[0];
         const receiverId = chat.user1_id === senderId ? chat.user2_id : chat.user1_id;
 
-        // Отправка уведомления получателю о новом сообщении
-        io.to(`user_${receiverId}`).emit('new_message_notification', {
+        console.log('🔔 Server: Определяем получателя уведомления');
+        console.log('🔔 Server: Отправитель:', senderId);
+        console.log('🔔 Server: Получатель:', receiverId);
+        console.log('🔔 Server: Чат ID:', chatId);
+
+        const notificationData = {
           chatId: chatId,
           senderId: senderId,
           senderName: `${sender.first_name} ${sender.last_name}`,
           senderAvatar: sender.avatar_url,
           message: content,
           createdAt: message.created_at
-        });
+        };
 
-        console.log(`Spiritual Platform: Уведомление о новом сообщении отправлено пользователю ${receiverId}`);
+        console.log('🔔 Server: Данные уведомления:', notificationData);
+        console.log('🔔 Server: Отправляем уведомление получателю через Socket.IO');
+
+        // Отправка уведомления получателю о новом сообщении
+        io.to(`user_${receiverId}`).emit('new_message_notification', notificationData);
+
+        console.log('🔔 Server: === УВЕДОМЛЕНИЕ ОТПРАВЛЕНО ===');
+        console.log(`🔔 Server: Получатель: user_${receiverId}`);
+        console.log('🔔 Server: Событие: new_message_notification');
+        console.log('🔔 Server: Данные отправлены');
+      } else {
+        console.log('🔔 Server: ОШИБКА - информация о чате не найдена для ID:', chatId);
       }
 
       // Отправка сообщения всем участникам чата
