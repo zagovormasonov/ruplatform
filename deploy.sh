@@ -57,6 +57,25 @@ cd ../server
 # Создание директории для логов
 mkdir -p logs
 
+# Настройка директории для Let's Encrypt
+echo "🔒 Настраиваем директорию для SSL сертификатов..."
+sudo mkdir -p /var/www/html/.well-known/acme-challenge
+sudo chown -R www-data:www-data /var/www/html/.well-known
+sudo chmod -R 755 /var/www/html/.well-known
+
+# Копирование конфигурации nginx (если есть обновления)
+if [ -f "../nginx.conf" ]; then
+    echo "📄 Копируем конфигурацию nginx..."
+    sudo cp ../nginx.conf /etc/nginx/sites-available/ruplatform
+    sudo ln -sf /etc/nginx/sites-available/ruplatform /etc/nginx/sites-enabled/
+    sudo rm -f /etc/nginx/sites-enabled/default
+    sudo nginx -t && sudo systemctl reload nginx
+fi
+
+# Получение SSL сертификатов с Let's Encrypt
+echo "🔒 Получаем SSL сертификаты..."
+sudo certbot --nginx -d soulsynergy.ru -d www.soulsynergy.ru --agree-tos --no-eff-email --redirect
+
 # Запуск с PM2
 echo "🚀 Запускаем сервер с PM2..."
 pm2 start ecosystem.config.js --env production
