@@ -84,26 +84,28 @@ const HomePage: React.FC = () => {
     <div className="home-page">
       {/* Dribbble Style Bento Grid */}
       <div className="bento-grid">
-        {/* Hero Section - Большая слева */}
-        <Card className="bento-card hero-card">
-          <div className="hero-content">
-            <Title level={1} className="hero-title">
-              Откройте мир
-              <br />
-              <span className="hero-highlight">духовных практик</span>
-            </Title>
-            <Paragraph className="hero-description">
-              Изучите работы самых талантливых и опытных
-              <br />
-              духовных практиков, готовых взяться за ваш проект.
-            </Paragraph>
-            <div className="hero-actions">
+        {/* Hero Section - Dribbble Style */}
+        <Card className="bento-card hero-card-modern">
+          <div className="hero-content-modern">
+            <div className="hero-text-modern">
+              <Title level={1} className="hero-title-modern">
+                Откройте мир
+                <br />
+                <span className="hero-highlight-modern">духовных практик</span>
+              </Title>
+              <Paragraph className="hero-description-modern">
+                Изучите работы самых талантливых и опытных
+                <br />
+                духовных практиков, готовых взяться за ваш проект.
+              </Paragraph>
+            </div>
+            <div className="hero-actions-modern">
               <Button
                 type="primary"
                 size="large"
                 icon={<SearchOutlined />}
                 onClick={() => navigate('/experts')}
-                className="hero-button"
+                className="hero-button-modern primary"
               >
                 Найти эксперта
               </Button>
@@ -111,7 +113,7 @@ const HomePage: React.FC = () => {
                 size="large"
                 icon={<FileTextOutlined />}
                 onClick={() => navigate('/articles')}
-                className="hero-button secondary"
+                className="hero-button-modern secondary"
               >
                 Читать статьи
               </Button>
