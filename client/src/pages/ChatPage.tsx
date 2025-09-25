@@ -84,50 +84,26 @@ const ChatPage: React.FC = () => {
 
     // Обработка уведомлений о новых сообщениях
     newSocket.on('new_message_notification', (notification: any) => {
-      console.log('🔔 Spiritual Platform: === УВЕДОМЛЕНИЕ О НОВОМ СООБЩЕНИИ ===');
-      console.log('🔔 Данные уведомления:', notification);
-      console.log('🔔 Тип уведомления:', typeof notification);
-      console.log('🔔 Ключи уведомления:', Object.keys(notification || {}));
+      console.log('Spiritual Platform: Получено уведомление о новом сообщении:', notification);
 
       // Обновляем список чатов для показа индикатора новых сообщений
-      console.log('🔔 Обновляем список чатов...');
       loadChats();
 
       // Показываем уведомление пользователю
-      console.log('🔔 Проверяем разрешение на уведомления:', Notification.permission);
       if (Notification.permission === 'granted') {
-        console.log('🔔 Показываем браузерное уведомление');
-        const browserNotification = new Notification(`Новое сообщение от ${notification.senderName}`, {
+        new Notification(`Новое сообщение от ${notification.senderName}`, {
           body: notification.message,
           icon: notification.senderAvatar || '/favicon.ico'
         });
-        console.log('🔔 Браузерное уведомление создано:', browserNotification);
-      } else {
-        console.log('🔔 Разрешение на уведомления не получено');
-        Notification.requestPermission();
       }
 
       // Показываем сообщение в UI
-      console.log('🔔 Показываем сообщение в интерфейсе');
-      message.info(`🔔 Новое сообщение от ${notification.senderName}: ${notification.message}`);
-
-      console.log('🔔 === КОНЕЦ ОБРАБОТКИ УВЕДОМЛЕНИЯ ===');
-    });
-
-    // Тестируем получение уведомлений
-    newSocket.on('test_notification', (data: any) => {
-      console.log('🔔 TEST: Получено тестовое уведомление:', data);
-      message.info('🔔 Тестовое уведомление получено!');
+      message.info(`Новое сообщение от ${notification.senderName}`);
     });
 
     // Обработка ошибок подключения
     newSocket.on('connect', () => {
-      console.log('🔔 Client: Socket.IO подключен');
-      console.log('🔔 Client: Socket ID:', newSocket.id);
-
-      // Присоединяемся к каналу пользователя
-      console.log('🔔 Client: Присоединяемся к каналу пользователя:', user.id);
-      newSocket.emit('join_user', user.id);
+      console.log('Spiritual Platform: Socket.IO подключен');
     });
 
     // Запрос разрешения на уведомления

@@ -50,6 +50,7 @@ io.on('connection', (socket) => {
   socket.on('join_user', (userId) => {
     activeUsers.set(userId, socket.id);
     socket.join(`user_${userId}`);
+    console.log(`Spiritual Platform: Пользователь ${userId} присоединился`);
   });
 
   socket.on('join_chat', (chatId) => {
@@ -103,12 +104,7 @@ io.on('connection', (socket) => {
           createdAt: message.created_at
         });
 
-        // Тестовое уведомление для проверки
-        io.to(`user_${receiverId}`).emit('test_notification', {
-          test: true,
-          message: 'Тестовое уведомление работает!',
-          timestamp: new Date().toISOString()
-        });
+        console.log(`Spiritual Platform: Уведомление о новом сообщении отправлено пользователю ${receiverId}`);
       }
 
       // Отправка сообщения всем участникам чата
