@@ -55,13 +55,13 @@ console.log('Spiritual Platform: Чаты с новыми сообщениями
 ### **1. Загрузите файлы:**
 ```bash
 # На локальной машине:
-scp -r server/dist/* root@31.130.155.103:/home/node/ruplatform/server/dist/
-scp -r client/dist/* root@31.130.155.103:/home/node/ruplatform/client/dist/
+scp -r server/dist/* root@soulsynergy.ru:/home/node/ruplatform/server/dist/
+scp -r client/dist/* root@soulsynergy.ru:/home/node/ruplatform/client/dist/
 ```
 
 ### **2. Перезапустите сервер:**
 ```bash
-ssh root@31.130.155.103 "pm2 restart ruplatform"
+ssh root@soulsynergy.ru "pm2 restart ruplatform"
 ```
 
 ## 🔍 **ПРОВЕРЬТЕ ЛОГИ:**

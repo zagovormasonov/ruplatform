@@ -5,8 +5,8 @@
 
 set -e
 
-SERVER_IP="31.130.155.103"
-DOMAIN="31.130.155.103"
+SERVER_IP="soulsynergy.ru"
+DOMAIN="soulsynergy.ru"
 
 echo "🚀 Развертывание RuPlatform на сервере $SERVER_IP..."
 
@@ -117,7 +117,7 @@ echo "🌐 Настройка Nginx..."
 cat > /etc/nginx/sites-available/ruplatform << 'EOFNGINX'
 server {
     listen 80;
-    server_name 31.130.155.103;
+    server_name soulsynergy.ru;
     
     # React приложение
     root /var/www/ruplatform/client-dist;
@@ -187,8 +187,8 @@ pm2 startup
 echo ""
 echo "🎉 УСТАНОВКА ЗАВЕРШЕНА!"
 echo ""
-echo "🌐 Ваш сайт доступен по адресу: http://31.130.155.103"
-echo "🔌 API доступно по адресу: http://31.130.155.103/api"
+echo "🌐 Ваш сайт доступен по адресу: https://soulsynergy.ru"
+echo "🔌 API доступно по адресу: https://soulsynergy.ru/api"
 echo ""
 echo "📊 Полезные команды:"
 echo "   pm2 status          - статус приложения"
@@ -230,6 +230,6 @@ echo "   scp configure-and-start.sh root@$SERVER_IP:/var/www/ruplatform/"
 echo "   ssh root@$SERVER_IP"
 echo "   cd /var/www/ruplatform && chmod +x configure-and-start.sh && ./configure-and-start.sh"
 echo ""
-echo "🌐 После выполнения ваш сайт будет доступен: http://$SERVER_IP"
+echo "🌐 После выполнения ваш сайт будет доступен: https://$SERVER_IP"
 echo ""
 echo "✨ Удачного развертывания! 🚀"

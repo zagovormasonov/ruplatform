@@ -31,10 +31,10 @@ TypeScript компиляция без ошибок, Vite сборка запу�
 npm run build
 
 # 2. Загрузить на сервер
-scp -r dist/* root@31.130.155.103:/home/node/ruplatform/client/dist/
+scp -r dist/* root@soulsynergy.ru:/home/node/ruplatform/client/dist/
 
 # 3. Перезапустить бэкенд
-ssh root@31.130.155.103 "pm2 restart ruplatform"
+ssh root@soulsynergy.ru "pm2 restart ruplatform"
 ```
 
 ## 🔧 ЧТО КОНКРЕТНО ИСПРАВЛЕНО:
@@ -100,9 +100,9 @@ const newMsg: Message = {
 ## 🎯 ФИНАЛЬНЫЕ ШАГИ:
 
 1. **Завершите сборку:** `npm run build`
-2. **Загрузите на сервер:** `scp -r dist/* root@31.130.155.103:/home/node/ruplatform/client/dist/`
+2. **Загрузите на сервер:** `scp -r dist/* root@soulsynergy.ru:/home/node/ruplatform/client/dist/`
 3. **Перезапустите бэкенд:** `pm2 restart ruplatform`
-4. **Откройте сайт:** http://31.130.155.103
+4. **Откройте сайт:** https://soulsynergy.ru
 5. **Протестируйте чаты!**
 
 **ЧАТЫ ГОТОВЫ К РАБОТЕ! 💬🚀**

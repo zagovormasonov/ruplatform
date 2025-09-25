@@ -65,6 +65,6 @@ pm2 start ecosystem.config.js --env production
 pm2 save
 
 echo "✅ Деплой завершен!"
-echo "🌐 Сайт доступен по адресу: https://yourdomain.ru"
+echo "🌐 Сайт доступен по адресу: https://soulsynergy.ru"
 echo "📊 Мониторинг сервера: pm2 monit"
 echo "📋 Логи сервера: pm2 logs ruplatform-api"

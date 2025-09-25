@@ -66,13 +66,13 @@
 
 ```bash
 # 1. Загрузить обновленные файлы на сервер
-scp -r dist/* root@31.130.155.103:/home/node/ruplatform/client/dist/
+scp -r dist/* root@soulsynergy.ru:/home/node/ruplatform/client/dist/
 
 # 2. Проверить что earth.jpg на месте
-scp public/earth.jpg root@31.130.155.103:/home/node/ruplatform/client/dist/
+scp public/earth.jpg root@soulsynergy.ru:/home/node/ruplatform/client/dist/
 
 # 3. Перезапустить сервер (если нужно)
-ssh root@31.130.155.103 "pm2 restart ruplatform"
+ssh root@soulsynergy.ru "pm2 restart ruplatform"
 ```
 
 ## 🎨 ВИЗУАЛЬНЫЕ ИЗМЕНЕНИЯ:
@@ -137,7 +137,7 @@ ssh root@31.130.155.103 "pm2 restart ruplatform"
 
 ## 🔍 ПРОВЕРКА:
 
-1. **Откройте сайт:** http://31.130.155.103
+1. **Откройте сайт:** https://soulsynergy.ru
 2. **Главная страница** теперь в стиле bento
 3. **Проверьте адаптивность** - измените размер окна
 4. **Все функции работают** - навигация, статьи, поиск

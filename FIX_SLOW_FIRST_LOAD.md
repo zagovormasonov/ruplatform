@@ -20,7 +20,7 @@
 sudo tee /etc/nginx/conf.d/ruplatform.conf > /dev/null << 'EOF'
 server {
     listen 80;
-    server_name 31.130.155.103;
+    server_name soulsynergy.ru;
     root /home/node/ruplatform/client/dist;
     index index.html;
     
@@ -161,7 +161,7 @@ DATABASE_URL=postgresql://gen_user:OCS(ifoR||A5$~@40e0a3b39459bee0b2e47359.twc1.
 JWT_SECRET=ruplatform_production_secret_2024
 PORT=3001
 NODE_ENV=production
-CLIENT_URL=http://31.130.155.103
+CLIENT_URL=https://soulsynergy.ru
 EOF
 
 # Перезапустить приложение
@@ -235,7 +235,7 @@ sudo apt update && sudo apt install -y nginx-extras
 
 ```bash
 # Проверить время ответа API
-time curl -s http://31.130.155.103/api/experts/search > /dev/null
+time curl -s https://soulsynergy.ru/api/experts/search > /dev/null
 
 # Проверить статус PM2
 pm2 monit
@@ -247,7 +247,7 @@ pm2 logs ruplatform --lines 20
 ls -lah /home/node/ruplatform/client/dist/assets/
 
 # Проверить Gzip работает
-curl -H "Accept-Encoding: gzip" -I http://31.130.155.103/assets/index-*.js
+curl -H "Accept-Encoding: gzip" -I https://soulsynergy.ru/assets/index-*.js
 ```
 
 ## 🚀 ДОПОЛНИТЕЛЬНЫЕ ОПТИМИЗАЦИИ:
@@ -255,7 +255,7 @@ curl -H "Accept-Encoding: gzip" -I http://31.130.155.103/assets/index-*.js
 ### Предзагрузка DNS:
 ```html
 <!-- Добавить в index.html если нужно -->
-<link rel="dns-prefetch" href="//31.130.155.103">
+<link rel="dns-prefetch" href="//soulsynergy.ru">
 ```
 
 ### Добавить прелоадинг важных ресурсов:
@@ -276,13 +276,13 @@ curl -H "Accept-Encoding: gzip" -I http://31.130.155.103/assets/index-*.js
 ```bash
 # Тест производительности
 echo "=== Тест скорости загрузки ==="
-time curl -s http://31.130.155.103 > /dev/null
+time curl -s https://soulsynergy.ru > /dev/null
 
 echo "=== Тест API ==="
-time curl -s http://31.130.155.103/api/experts/search > /dev/null
+time curl -s https://soulsynergy.ru/api/experts/search > /dev/null
 
 echo "=== Проверка Gzip ==="
-curl -H "Accept-Encoding: gzip" -I http://31.130.155.103 | grep -i "content-encoding"
+curl -H "Accept-Encoding: gzip" -I https://soulsynergy.ru | grep -i "content-encoding"
 ```
 
 ## 🎯 ОЖИДАЕМЫЕ УЛУЧШЕНИЯ:

@@ -25,7 +25,7 @@ DATABASE_URL=postgresql://gen_user:OCS(ifoR||A5$~@40e0a3b39459bee0b2e47359.twc1.
 JWT_SECRET=ruplatform_production_secret_2024
 PORT=3001
 NODE_ENV=production
-CLIENT_URL=http://31.130.155.103
+CLIENT_URL=https://soulsynergy.ru
 EOF
 
 echo "✅ .env обновлен - порт изменен на 3001"
@@ -65,7 +65,7 @@ echo "✅ PM2 конфиг обновлен - порт изменен на 3001"
 sudo tee /etc/nginx/conf.d/ruplatform.conf > /dev/null << 'EOF'
 server {
     listen 80;
-    server_name 31.130.155.103;
+    server_name soulsynergy.ru;
     root /home/node/ruplatform/client/dist;
     index index.html;
     
@@ -137,7 +137,7 @@ sudo netstat -tulpn | grep :3000
 curl http://localhost:3001/api/experts/search
 
 # 5. Тест API через Nginx
-curl http://31.130.155.103/api/experts/search
+curl https://soulsynergy.ru/api/experts/search
 
 # 6. Проверить логи PM2
 pm2 logs ruplatform --lines 10
@@ -159,7 +159,7 @@ sudo netstat -tulpn | grep :3001
 # tcp6    0    0 :::3001    :::*    LISTEN    12345/node
 
 # API должно отвечать:
-curl http://31.130.155.103/api/experts/search
+curl https://soulsynergy.ru/api/experts/search
 # {"experts":[],"pagination":{"page":1,"limit":12,"total":0,"totalPages":0}}
 ```
 
@@ -207,8 +207,8 @@ cat /home/node/ruplatform/server/.env
 
 После выполнения всех шагов:
 
-1. **Откройте в браузере:** http://31.130.155.103
-2. **Проверьте API:** http://31.130.155.103/api/experts/search
+1. **Откройте в браузере:** https://soulsynergy.ru
+2. **Проверьте API:** https://soulsynergy.ru/api/experts/search
 3. **Бесконечная загрузка должна исчезнуть**
 4. **Приложение должно работать полностью**
 

@@ -79,11 +79,11 @@ const userExists = await pool.query('SELECT id FROM users WHERE id = $1', [other
 ### **Команды для деплоя:**
 ```bash
 # Загрузить исправленные файлы
-scp -r server/dist/* root@31.130.155.103:/home/node/ruplatform/server/dist/
-scp -r client/dist/* root@31.130.155.103:/home/node/ruplatform/client/dist/
+scp -r server/dist/* root@soulsynergy.ru:/home/node/ruplatform/server/dist/
+scp -r client/dist/* root@soulsynergy.ru:/home/node/ruplatform/client/dist/
 
 # Перезапустить сервер
-ssh root@31.130.155.103 "pm2 restart ruplatform"
+ssh root@soulsynergy.ru "pm2 restart ruplatform"
 ```
 
 ## 🔍 **ПРОВЕРКА:**

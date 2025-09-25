@@ -43,7 +43,7 @@ echo $JWT_SECRET
 
 ### **Шаг 1: Включите консоль в браузере**
 ```bash
-# Откройте http://31.130.155.103/experts
+# Откройте https://soulsynergy.ru/experts
 # F12 → Console
 # Попробуйте нажать "связаться" с разными экспертами
 # Посмотрите логи в консоли
@@ -63,7 +63,7 @@ pm2 logs ruplatform --lines 50
 ```bash
 # 1. Авторизуйтесь и получите токен из Local Storage
 # 2. Протестируйте:
-curl -X POST http://31.130.155.103/api/chats/start \
+curl -X POST https://soulsynergy.ru/api/chats/start \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
   -H "Content-Type: application/json" \
   -d '{"otherUserId": 2}'
@@ -128,8 +128,8 @@ Spiritual Platform Server: Отправляем ответ: { chatId: 123, other
 ### **Обновите сервер с новым логированием:**
 ```bash
 # На локальной машине:
-scp -r server/dist/* root@31.130.155.103:/home/node/ruplatform/server/dist/
-scp -r client/dist/* root@31.130.155.103:/home/node/ruplatform/client/dist/
+scp -r server/dist/* root@soulsynergy.ru:/home/node/ruplatform/server/dist/
+scp -r client/dist/* root@soulsynergy.ru:/home/node/ruplatform/client/dist/
 
 # На сервере:
 pm2 restart ruplatform

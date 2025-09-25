@@ -18,14 +18,14 @@ cd client
 
 # 2. Создать .env файл для продакшена
 cat > .env.production << 'EOF'
-VITE_API_URL=http://31.130.155.103/api
+VITE_API_URL=https://soulsynergy.ru/api
 EOF
 
 # 3. Пересобрать клиент
 npm run build
 
 # 4. Загрузить новые файлы на сервер
-scp -r dist/* root@31.130.155.103:/home/node/ruplatform/client/dist/
+scp -r dist/* root@soulsynergy.ru:/home/node/ruplatform/client/dist/
 ```
 
 ### ВАРИАНТ 2: Настроить Nginx редирект (быстрее)
@@ -37,7 +37,7 @@ scp -r dist/* root@31.130.155.103:/home/node/ruplatform/client/dist/
 sudo tee /etc/nginx/conf.d/ruplatform.conf > /dev/null << 'EOF'
 server {
     listen 80;
-    server_name 31.130.155.103;
+    server_name soulsynergy.ru;
     root /home/node/ruplatform/client/dist;
     index index.html;
     
@@ -87,7 +87,7 @@ server {
 # Дополнительный сервер для обработки localhost запросов
 server {
     listen 3001;
-    server_name localhost 127.0.0.1 31.130.155.103;
+    server_name localhost 127.0.0.1 soulsynergy.ru;
     
     # Перенаправить все API запросы на наш Node.js сервер
     location / {
@@ -144,7 +144,7 @@ sudo grep -r "localhost" /home/node/ruplatform/client/dist/ || echo "✅ localho
 
 ```bash
 # 1. Проверить что API работает
-curl http://31.130.155.103/api/experts/search
+curl https://soulsynergy.ru/api/experts/search
 
 # 2. Проверить что в JS файлах нет localhost
 sudo grep -r "localhost" /home/node/ruplatform/client/dist/
@@ -169,7 +169,7 @@ Frontend → 31.130.155.103/api → Nginx → 127.0.0.1:3001 → Node.js → ✅
 
 После исправления:
 - ✅ Ошибки "Network Error" исчезнут
-- ✅ Запросы будут идти на `31.130.155.103/api`
+- ✅ Запросы будут идти на `https://soulsynergy.ru/api`
 - ✅ Поиск экспертов заработает
 - ✅ Авторизация заработает
 - ✅ Все API функции заработают
@@ -182,9 +182,9 @@ Frontend → 31.130.155.103/api → Nginx → 127.0.0.1:3001 → Node.js → ✅
 
 # Если все еще localhost:3001, то нужно пересобрать клиент:
 # На вашем компьютере:
-# echo 'VITE_API_URL=http://31.130.155.103/api' > client/.env.production
+# echo 'VITE_API_URL=https://soulsynergy.ru/api' > client/.env.production
 # cd client && npm run build
-# scp -r dist/* root@31.130.155.103:/home/node/ruplatform/client/dist/
+# scp -r dist/* root@soulsynergy.ru:/home/node/ruplatform/client/dist/
 ```
 
 **ВЫПОЛНИТЕ БЫСТРОЕ РЕШЕНИЕ И ОБНОВИТЕ СТРАНИЦУ! 🚀**

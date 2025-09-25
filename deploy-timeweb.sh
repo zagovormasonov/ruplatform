@@ -172,7 +172,7 @@ pm2 save
 pm2 startup
 
 echo "✅ Установка завершена!"
-echo "🌐 Приложение доступно по адресу: http://$(hostname -I | awk '{print $1}')"
+echo "🌐 Приложение доступно по адресу: https://soulsynergy.ru"
 echo "📊 Логи: pm2 logs"
 echo "🔄 Перезапуск: pm2 restart ruplatform-server"
 EOF

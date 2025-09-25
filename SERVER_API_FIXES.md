@@ -87,13 +87,13 @@ const message = {
 
 ```bash
 # 1. Загрузить исправленные файлы сервера
-scp -r server/dist/* root@31.130.155.103:/home/node/ruplatform/server/dist/
+scp -r server/dist/* root@soulsynergy.ru:/home/node/ruplatform/server/dist/
 
 # 2. Загрузить обновленные файлы клиента
-scp -r client/dist/* root@31.130.155.103:/home/node/ruplatform/client/dist/
+scp -r client/dist/* root@soulsynergy.ru:/home/node/ruplatform/client/dist/
 
 # 3. Перезапустить сервер
-ssh root@31.130.155.103 "pm2 restart ruplatform"
+ssh root@soulsynergy.ru "pm2 restart ruplatform"
 ```
 
 ## 🔍 **ЧТО ПРОВЕРИТЬ В БРАУЗЕРЕ:**
@@ -125,7 +125,7 @@ Spiritual Platform: Message 0: {
 ### **5. Если проблемы остаются:**
 Проверьте логи сервера на сервере:
 ```bash
-ssh root@31.130.155.103 "pm2 logs ruplatform"
+ssh root@soulsynergy.ru "pm2 logs ruplatform"
 ```
 
 ## 🎯 **ИТОГ:**

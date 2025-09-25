@@ -36,10 +36,10 @@ cd client
 npm run build
 
 # 3. Загрузить обновленные файлы на сервер
-scp -r dist/* root@31.130.155.103:/home/node/ruplatform/client/dist/
+scp -r dist/* root@soulsynergy.ru:/home/node/ruplatform/client/dist/
 
 # 4. Убедиться что earth.jpg тоже загружен
-scp public/earth.jpg root@31.130.155.103:/home/node/ruplatform/client/dist/
+scp public/earth.jpg root@soulsynergy.ru:/home/node/ruplatform/client/dist/
 ```
 
 ### Альтернативно на сервере:
@@ -47,14 +47,14 @@ scp public/earth.jpg root@31.130.155.103:/home/node/ruplatform/client/dist/
 ```bash
 # Если файл earth.jpg уже на сервере в правильном месте
 # Просто загрузить новые CSS файлы:
-# scp client/dist/assets/*.css root@31.130.155.103:/home/node/ruplatform/client/dist/assets/
+# scp client/dist/assets/*.css root@soulsynergy.ru:/home/node/ruplatform/client/dist/assets/
 ```
 
 ## ✅ ПРОВЕРКА:
 
 После загрузки файлов:
 
-1. **Откройте сайт:** http://31.130.155.103
+1. **Откройте сайт:** https://soulsynergy.ru
 2. **Обновите страницу** (Ctrl+F5) чтобы сбросить кеш
 3. **Проверьте** что на главной странице вместо градиента отображается картинка земли
 
@@ -80,7 +80,7 @@ sudo chown www-data:www-data /home/node/ruplatform/client/dist/earth.jpg
 ```
 
 ### 3. Проверить в браузере:
-- Откройте http://31.130.155.103/earth.jpg - картинка должна отображаться
+- Откройте https://soulsynergy.ru/earth.jpg - картинка должна отображаться
 - Проверьте консоль браузера (F12) на ошибки загрузки
 
 ### 4. Очистить кеш:
