@@ -142,8 +142,14 @@ const ChatPage: React.FC = () => {
     try {
       setChatsLoading(true);
       const chatsData = await chatsAPI.getAll();
+      console.log('Spiritual Platform: Загружены чаты:', chatsData);
+
+      // Логируем индикаторы новых сообщений
+      const chatsWithNewMessages = chatsData.filter(chat => chat.hasNewMessage);
+      console.log('Spiritual Platform: Чаты с новыми сообщениями:', chatsWithNewMessages);
+
       setChats(chatsData);
-      
+
       // Если нет выбранного чата, но есть чаты, выбираем первый
       if (!chatId && chatsData.length > 0) {
         navigate(`/chat/${chatsData[0].id}`);
@@ -402,7 +408,13 @@ const ChatPage: React.FC = () => {
                                 backgroundColor: '#ff4d4f',
                                 borderRadius: '50%',
                                 border: '2px solid white',
-                                zIndex: 10
+                                zIndex: 10,
+                                animation: 'pulse 2s infinite'
+                              }}
+                              title={`Новое сообщение от ${chat.otherUserName}`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                console.log('Spiritual Platform: Клик по индикатору новых сообщений для чата:', chat.id);
                               }}
                             />
                           )}

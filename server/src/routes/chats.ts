@@ -9,6 +9,7 @@ router.get('/', authenticateToken, async (req: AuthRequest, res) => {
   try {
     const userId = req.user?.id;
 
+    console.log('Spiritual Platform Server: Получаем список чатов для пользователя:', userId);
     const result = await pool.query(`
       SELECT c.id, c.last_message, c.last_message_at, c.created_at,
              CASE
@@ -34,6 +35,14 @@ router.get('/', authenticateToken, async (req: AuthRequest, res) => {
       WHERE c.user1_id = $1 OR c.user2_id = $1
       ORDER BY c.last_message_at DESC NULLS LAST, c.created_at DESC
     `, [userId]);
+
+    console.log('Spiritual Platform Server: Найдено чатов:', result.rows.length);
+    console.log('Spiritual Platform Server: Данные чатов:', result.rows.map(row => ({
+      id: row.id,
+      otherUserName: row.other_user_name,
+      hasNewMessage: row.has_new_message,
+      unreadCount: row.unread_count
+    })));
 
     res.json(result.rows);
   } catch (error) {
