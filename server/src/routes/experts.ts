@@ -17,8 +17,8 @@ router.get('/search', async (req, res) => {
     let query = `
       SELECT DISTINCT ep.id,
              u.id as "userId",
-             u.first_name as "firstName",
-             u.last_name as "lastName",
+             u.first_name,
+             u.last_name,
              u.avatar_url as "avatarUrl",
              ep.bio,
              ep.rating,
@@ -190,7 +190,7 @@ router.get('/:id', async (req, res) => {
     const expertId = req.params.id;
 
     const expertResult = await pool.query(`
-      SELECT ep.*, u.first_name, u.last_name, u.email, u.avatar_url, u.phone,
+      SELECT ep.*, u.id as "userId", u.first_name, u.last_name, u.email, u.avatar_url, u.phone,
              c.name as city_name, c.region,
              array_agg(DISTINCT t.name) as topics
       FROM expert_profiles ep
@@ -199,7 +199,7 @@ router.get('/:id', async (req, res) => {
       LEFT JOIN expert_topics et ON ep.id = et.expert_id
       LEFT JOIN topics t ON et.topic_id = t.id
       WHERE ep.id = $1 AND ep.is_active = true
-      GROUP BY ep.id, u.first_name, u.last_name, u.email, u.avatar_url, u.phone, c.name, c.region
+      GROUP BY ep.id, u.id, u.first_name, u.last_name, u.email, u.avatar_url, u.phone, c.name, c.region
     `, [expertId]);
 
     // Преобразуем snake_case в camelCase для совместимости с фронтендом
