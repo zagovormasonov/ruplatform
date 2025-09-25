@@ -72,22 +72,55 @@ const ExpertProfilePage: React.FC = () => {
       return;
     }
 
-    if (!expert) return;
+    if (!expert || !expert.userId) {
+      console.error('Spiritual Platform: Эксперт или userId не найден');
+      message.error('Ошибка данных эксперта');
+      return;
+    }
 
     try {
       setContactLoading(true);
-      console.log('Spiritual Platform: Создание чата с экспертом:', expert.userId);
-      const chatData = await chatsAPI.start(expert.userId);
+      console.log('Spiritual Platform: Создание чата с экспертом:', {
+        expertId: expert.id,
+        userId: expert.userId,
+        expertName: `${expert.firstName} ${expert.lastName}`
+      });
+
+      // Убеждаемся, что userId является числом
+      const otherUserId = parseInt(String(expert.userId), 10);
+
+      if (isNaN(otherUserId)) {
+        console.error('Spiritual Platform: Неправильный формат userId:', expert.userId);
+        message.error('Ошибка данных эксперта');
+        return;
+      }
+
+      console.log('Spiritual Platform: Отправляем запрос с otherUserId:', otherUserId);
+      const chatData = await chatsAPI.start(otherUserId);
       console.log('Spiritual Platform: Чат создан:', chatData);
-      navigate(`/chat/${chatData.chatId}`);
-    } catch (error) {
+
+      if (chatData && chatData.chatId) {
+        navigate(`/chat/${chatData.chatId}`);
+      } else {
+        console.error('Spiritual Platform: Ответ сервера не содержит chatId:', chatData);
+        message.error('Ошибка создания чата');
+      }
+    } catch (error: any) {
       console.error('Spiritual Platform: Ошибка создания чата:', error);
       console.error('Spiritual Platform: Детали ошибки:', {
-        message: (error as Error).message,
-        status: (error as any).response?.status,
-        data: (error as any).response?.data
+        message: error.message,
+        status: error.response?.status,
+        data: error.response?.data,
+        expert: expert
       });
-      message.error('Не удалось связаться с экспертом');
+
+      if (error.response?.status === 400) {
+        message.error('Неверные данные для создания чата');
+      } else if (error.response?.status === 404) {
+        message.error('Эксперт не найден');
+      } else {
+        message.error('Не удалось связаться с экспертом');
+      }
     } finally {
       setContactLoading(false);
     }

@@ -104,16 +104,26 @@ router.get('/search', async (req, res) => {
     // Получение детальной информации об услугах для каждого эксперта
     const expertsWithServices = await Promise.all(result.rows.map(async (expert) => {
       const servicesResult = await pool.query(`
-        SELECT id, title, description, price, duration_minutes as "durationMinutes", 
+        SELECT id, title, description, price, duration_minutes as "durationMinutes",
                service_type as "serviceType", is_active as "isActive"
-        FROM services 
+        FROM services
         WHERE expert_id = $1 AND is_active = true
       `, [expert.id]);
 
-      return {
+      // Преобразуем snake_case в camelCase для совместимости с фронтендом
+      const transformedExpert = {
         ...expert,
+        firstName: expert.first_name,
+        lastName: expert.last_name,
+        cityName: expert.city_name,
         services: servicesResult.rows
       };
+
+      delete transformedExpert.first_name;
+      delete transformedExpert.last_name;
+      delete transformedExpert.city_name;
+
+      return transformedExpert;
     }));
 
     // Подсчет общего количества
@@ -191,6 +201,17 @@ router.get('/:id', async (req, res) => {
       WHERE ep.id = $1 AND ep.is_active = true
       GROUP BY ep.id, u.first_name, u.last_name, u.email, u.avatar_url, u.phone, c.name, c.region
     `, [expertId]);
+
+    // Преобразуем snake_case в camelCase для совместимости с фронтендом
+    const expert = expertResult.rows[0];
+    if (expert) {
+      expert.firstName = expert.first_name;
+      expert.lastName = expert.last_name;
+      expert.cityName = expert.city_name;
+      delete expert.first_name;
+      delete expert.last_name;
+      delete expert.city_name;
+    }
 
     if (expertResult.rows.length === 0) {
       return res.status(404).json({ error: 'Эксперт не найден' });
