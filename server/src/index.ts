@@ -120,12 +120,21 @@ io.on('connection', (socket) => {
         console.log('🔔 Server: Отправляем уведомление получателю через Socket.IO');
 
         // Отправка уведомления получателю о новом сообщении
+        console.log('🔔 Server: Отправляем уведомление через Socket.IO...');
         io.to(`user_${receiverId}`).emit('new_message_notification', notificationData);
+
+        // Тестовое уведомление для проверки
+        io.to(`user_${receiverId}`).emit('test_notification', {
+          test: true,
+          message: 'Тестовое уведомление работает!',
+          timestamp: new Date().toISOString()
+        });
 
         console.log('🔔 Server: === УВЕДОМЛЕНИЕ ОТПРАВЛЕНО ===');
         console.log(`🔔 Server: Получатель: user_${receiverId}`);
         console.log('🔔 Server: Событие: new_message_notification');
         console.log('🔔 Server: Данные отправлены');
+        console.log('🔔 Server: Тестовое уведомление также отправлено');
       } else {
         console.log('🔔 Server: ОШИБКА - информация о чате не найдена для ID:', chatId);
       }
